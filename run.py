@@ -28,7 +28,7 @@ def main():
 
         win.fill(black)
 
-        textsurface = myfont.render("Hi I'm Alex", False, white)
+        textsurface = myfont.render("Hi I'm Alex!", False, white)
         win.blit(textsurface, (0, 0))  # change the coordinates to put it in a different place
 
         pygame.display.update()
