@@ -2,6 +2,9 @@ import pygame
 import random
 import time
 
+
+
+
 windowwidth = 1000
 windowheight = 750
 white = (255, 255, 255)
@@ -14,7 +17,6 @@ gold = (255,215,0)
 sheildColor = (51,255,255)
 multiplayer = True
 
-pygame.init()
 
 class Annihilator:
     def __init__(self):
@@ -29,10 +31,23 @@ class Annihilator:
         self.nickName = "Nickname"
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
-    def tick(self):
+    def tick(self,keys):
         if keys[pygame.K_a]:
             self.x-=10
-            self.velx
-        if keys[pygame.K_d]:
+            self.velx = -10
+        elif keys[pygame.K_d]:
             self.x += 10
-            self.dir = "right"
+            self.velx = 10
+        elif keys[pygame.K_w]:
+            self.y -= 10
+            self.vely = -10
+        elif keys[pygame.K_s]:
+            self.y += 10
+            self.vely = 10
+        else:
+            self.nickName = "Hi"
+
+
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        pygame.draw.rect(win, lightblue, self.rect)
+

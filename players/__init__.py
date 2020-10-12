@@ -1,2 +1,2 @@
-from .waver import *
-from .strober import *
+from .Annihilator import *
+

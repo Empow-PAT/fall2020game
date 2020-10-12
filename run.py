@@ -14,7 +14,7 @@ def main():
     white = (255, 255, 255)
 
     myfont = pygame.font.SysFont('Impact', 30)  # change the 30 for a different text size
-
+    annihilator = Annihilator()
 
     run = True
     while run:
@@ -25,7 +25,7 @@ def main():
                 run = False
 
         keys = pygame.key.get_pressed()
-
+        annihilator.tick(keys)
         win.fill(black)
 
         textsurface = myfont.render("Welcome to PyGame", False, white)
