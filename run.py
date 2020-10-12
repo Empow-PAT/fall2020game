@@ -14,7 +14,7 @@ def main():
     white = (255, 255, 255)
 
     myfont = pygame.font.SysFont('Impact', 30)  # change the 30 for a different text size
-
+    annihilator = Annihilator()
 
     run = True
     while run:
@@ -25,10 +25,11 @@ def main():
                 run = False
 
         keys = pygame.key.get_pressed()
+        annihilator.tick(keys)
 
         win.blit(sprites["apod1"],(0,0))
 
-        textsurface = myfont.render("Welcome to astral-run", False, white)
+        textsurface = myfont.render("Welcome to PyGame", False, white)
         win.blit(textsurface, (0, 0))  # change the coordinates to put it in a different place
 
         pygame.display.update()
