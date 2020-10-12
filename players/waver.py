@@ -1,7 +1,7 @@
 __all__ = ['PlayerWaving']
 
 import pygame
-from sprites import sprites
+from fall2020game.sprites import sprites
 
 # Load in the image(s) you want
 images = [sprites[str(n)] for n in range(4)]

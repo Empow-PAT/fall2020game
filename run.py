@@ -1,6 +1,6 @@
 import sys
 import pygame
-from players import *
+from fall2020game.players import *
 
 
 def main():

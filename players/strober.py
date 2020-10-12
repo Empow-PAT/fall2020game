@@ -1,7 +1,7 @@
 __all__ = ['PlayerStrobing']
 
 import pygame
-from sprites import sprites
+from fall2020game.sprites import sprites
 
 # Load in the image(s) you want
 spriteimg = sprites['0']
