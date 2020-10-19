@@ -21,16 +21,16 @@ def main():
 
         pygame.time.delay(25)
 
-        #for event in pygame.event.get():
-            #if event.type == pygame.QUIT:
-                #run = False
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
 
         keys = pygame.key.get_pressed()
         win.fill(black)
-        #annihilator.tick(keys,win)
+        annihilator.tick(keys,win)
 
-        #textsurface = myfont.render("Welcome to PyGame", False, white)
-        #win.blit(textsurface, (0, 0))  # change the coordinates to put it in a different place
+        textsurface = myfont.render("Welcome to PyGame", False, white)
+        win.blit(textsurface, (0, 0))  # change the coordinates to put it in a different place
 
         pygame.display.update()
 
