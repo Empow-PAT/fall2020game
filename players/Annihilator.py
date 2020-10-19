@@ -32,25 +32,27 @@ class Annihilator:
 
     def tick(self,keys,win):
         if keys[pygame.K_a]:
-            self.x-=10
-            self.velx = -10
+            self.velx = -12
         elif keys[pygame.K_d]:
-            self.x += 10
-            self.velx = 10
+            self.velx = 12
         else:
             if self.velx > 0:
-                self.velx -= 0.5
+                self.velx -= 0.4
+            if self.velx < 0:
+                self.velx += 0.4
 
         if keys[pygame.K_w]:
-            self.y -= 10
-            self.vely = -10
+            self.vely = -12
         elif keys[pygame.K_s]:
-            self.y += 10
-            self.vely = 10
+            self.vely = 12
         else:
             if self.vely > 0:
-                self.vely -= 0.5
+                self.vely -= 0.4
+            if self.vely < 0:
+                self.vely += 0.4
 
+        self.x += self.velx
+        self.y += self.vely
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.rect(win, lightblue, self.rect)
