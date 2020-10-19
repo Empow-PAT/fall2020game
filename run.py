@@ -6,8 +6,8 @@ from fall2020game.sprites import *
 def main():
     pygame.init()
 
-    windowwidth = 400
-    windowheight = 400
+    windowwidth = 1024
+    windowheight = 768
     win = pygame.display.set_mode((windowwidth, windowheight))
     pygame.display.set_caption("Starter")
     black = (0, 0, 0)
@@ -29,8 +29,8 @@ def main():
 
         win.blit(sprites["apod1"],(0,0))
 
-        textsurface = myfont.render("Welcome to PyGame", False, white)
-        win.blit(textsurface, (0, 0))  # change the coordinates to put it in a different place
+        #textsurface = myfont.render("Welcome to PyGame", False, white)
+        #win.blit(textsurface, (0, 0))  # change the coordinates to put it in a different place
 
         pygame.display.update()
 
