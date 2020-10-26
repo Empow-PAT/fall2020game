@@ -1,7 +1,7 @@
 import sys
 import pygame
 from fall2020game.players import *
-
+from fall2020game.sprites import *
 
 def main():
     pygame.init()
@@ -26,9 +26,9 @@ def main():
 
         keys = pygame.key.get_pressed()
 
-        win.fill(black)
+        win.blit(sprites["apod1"],(0,0))
 
-        textsurface = myfont.render("Welcome to PyGame", False, white)
+        textsurface = myfont.render("Welcome to astral-run", False, white)
         win.blit(textsurface, (0, 0))  # change the coordinates to put it in a different place
 
         pygame.display.update()
