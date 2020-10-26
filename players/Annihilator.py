@@ -3,9 +3,6 @@ import random
 import time
 
 
-
-
-
 white = (255, 255, 255)
 black = (0,0,0)
 yellow = (255, 255, 0)
@@ -16,6 +13,15 @@ gold = (255,215,0)
 sheildColor = (51,255,255)
 multiplayer = True
 
+font_name = pygame.font.match_font('arial')
+
+
+def draw_text_sat(surf, text, size, x, y):
+    font = pygame.font.Font(font_name, size)
+    text_surface = font.render(text, True, white)
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (x,y)
+    surf.blit(text_surface, (x,y))
 
 class Annihilator:
     def __init__(self):
@@ -23,10 +29,11 @@ class Annihilator:
         self.y = 0
         self.height = 25.0
         self.width = 25.0
-        #gravity, friction, slope, upwards velocity, x velocity
+        #friction, slope, upwards velocity, x velocity
         self.velx = 0
         self.vely = 0
         self.hp = 1000
+        self.friction = 0.4
         self.nickName = "Nickname"
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
@@ -37,9 +44,15 @@ class Annihilator:
             self.velx = 12
         else:
             if self.velx > 0:
-                self.velx -= 0.4
+                if self.velx > self.friction:
+                    self.velx -= self.friction
+                if self.velx < self.friction:
+                    self.velx = 0
             if self.velx < 0:
-                self.velx += 0.4
+                if self.velx < -self.friction:
+                    self.velx += self.friction
+                if self.velx > -self.friction:
+                    self.velx = 0
 
         if keys[pygame.K_w]:
             self.vely = -12
@@ -47,13 +60,21 @@ class Annihilator:
             self.vely = 12
         else:
             if self.vely > 0:
-                self.vely -= 0.4
+                if self.vely > self.friction:
+                    self.vely -= self.friction
+                if self.vely < self.friction:
+                    self.vely = 0
             if self.vely < 0:
-                self.vely += 0.4
+                if self.vely < -self.friction:
+                    self.vely += self.friction
+                if self.vely > -self.friction:
+                    self.vely = 0
 
         self.x += self.velx
         self.y += self.vely
 
+
+        draw_text_sat(win, self.nickName, 24 ,self.x-len(self.nickName)*3, self.y-32)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.rect(win, lightblue, self.rect)
 
