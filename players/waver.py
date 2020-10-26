@@ -8,8 +8,8 @@ images = [sprites[str(n)] for n in range(4)]
 
 class PlayerWaving:
     def __init__(self):
-        self.x = 0
-        self.y = 0
+        self.x = 10
+        self.y = 10
         self.width = 50
         self.height = 50
         self.vely = 0
