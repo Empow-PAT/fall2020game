@@ -34,7 +34,9 @@ if not os.path.exists(name+".jpg"):
 
 HERE = dirname(abspath(__file__))
 
+
 def load_sprites():
+    """Load the image sprites from this folder, for easy access."""
     sprites = {}
     for file_name in listdir(HERE):
         if file_name.startswith('sprite_') and file_name.endswith('.png'):
@@ -47,6 +49,7 @@ def load_sprites():
             file_full_path = join(HERE, file_name)
             sprites[name_wo_png] = pygame.image.load(file_full_path)
     return sprites
+
 
 sprites = load_sprites()
 
