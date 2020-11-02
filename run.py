@@ -2,7 +2,7 @@ import sys
 import pygame
 from fall2020game.players import *
 from fall2020game.sprites import *
-
+"""Makes random backgrounds"""
 def main():
     pygame.init()
 
