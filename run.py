@@ -29,6 +29,9 @@ def main():
         win.fill(black)
         annihilator.tick(keys,win)
 
+        for projectile in projectiles:
+            projectile.tick(win,windowwidth,windowheight)
+
         textsurface = myfont.render("Welcome to PyGame", False, white)
         win.blit(textsurface, (0, 0))  # change the coordinates to put it in a different place
 
