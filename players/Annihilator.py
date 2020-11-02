@@ -34,6 +34,8 @@ class Annihilator:
         self.vely = 0
         self.hp = 1000
         self.friction = 0.4
+        self.dirx = 0
+        self.diry = 0
         self.nickName = "Nickname"
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
@@ -73,8 +75,34 @@ class Annihilator:
         self.x += self.velx
         self.y += self.vely
 
+        if keys[pygame.K_SPACE]:
+            projectile = Projectile_Annihal(self)
+            projectiles.append(projectile)
 
         draw_text_sat(win, self.nickName, 24 ,self.x-len(self.nickName)*3, self.y-32)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.rect(win, lightblue, self.rect)
 
+projectiles = []
+
+class Projectile_Annihal:
+    def __init__(self,annihilator):
+        self.x = 0
+        self.y = 0
+        self.height = 10.0
+        self.width = 10.0
+        # friction, slope, upwards velocity, x velocity
+        self.velx = annihilator.velx*1.75
+        self.vely = annihilator.vely*1.75
+        self.friction = 0.4
+
+    def tick(self,win,windowwidth,windowheight):
+        self.x += self.velx
+        self.y += self.vely
+
+        if self.x < 0  or self.y < 0 or self.x > windowwidth or self.y > windowheight:
+            projectiles.remove(self)
+
+
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        pygame.draw.ellipse(win, red, self.rect)
