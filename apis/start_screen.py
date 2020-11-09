@@ -20,5 +20,6 @@ req = requests.get(f"https://api.nasa.gov/planetary/apod?api_key=Guv4egEEeC4kQxH
 apod_json = req.json()
 
 print(apod_json)
+print(req.headers)
 
 print(apod_json["url"])
