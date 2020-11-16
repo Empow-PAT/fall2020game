@@ -12,7 +12,7 @@ def Nickname(value):
     nickname = value
 
 
-def main(gameStart=None):
+def main():
     global nickname
     pygame.init()
     nickname = "Nickname"
@@ -49,9 +49,14 @@ def main(gameStart=None):
     )
     menu = pygame_menu.Menu(windowheight-1, windowwidth-1, " ", theme=mytheme)
 
+    gameStart = False
+    def start_game():
+        global gameStart
+        gameStart = True
+
     menu.add_text_input('', default='ENTER NICKNAME HERE', onchange=Nickname, cursor_selection_enable=True, selection_effect= pygame_menu.widgets.HighlightSelection())
-    playbutton = menu.add_button("        ", gameStart, background_color=playbutton2, font_size=72)
-    ships = menu.add_button("         ", gameStart, background_color=ships2, font_size=36)
+    playbutton = menu.add_button("        ", start_game, background_color=playbutton2, font_size=72)
+    ships = menu.add_button("         ", None, background_color=ships2, font_size=36)
     pygame.display.update()
 
     menu.mainloop(win)
@@ -61,24 +66,24 @@ def main(gameStart=None):
 
         pygame.time.delay(25)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
+        if not gameStart:
+            menu.draw(win)
+        else:
+            events = pygame.event.get()
+            for event in events:
+                if event.type == pygame.QUIT:
+                    run = False
 
         keys = pygame.key.get_pressed()
         annihilator.tick(keys)
 
         win.blit(sprites["apod1"],(0,0))
 
-        #textsurface = myfont.render("Welcome to PyGame", False, white)
-        #win.blit(textsurface, (0, 0))  # change the coordinates to put it in a different place
+        textsurface = myfont.render(""" PLAY """, False, white)
+        win.blit(textsurface, (300, 390))  # change the coordinates to put it in a different place
 
         pygame.display.update()
 
 
 if __name__ == '__main__':
     main()
-
-
-
-
