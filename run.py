@@ -16,7 +16,6 @@ def main():
 
     myfont = pygame.font.SysFont('Impact', 30)  # change the 30 for a different text size
     annihilator = Annihilator()
-
     while run:
 
         pygame.time.delay(25)
@@ -28,7 +27,9 @@ def main():
         keys = pygame.key.get_pressed()
         win.fill(black)
         annihilator.tick(keys,win)
-
+        for ult in ults:
+            if ult.time < 120:
+                ult.tick(win)
         for projectile in projectiles:
             projectile.tick(win,windowwidth,windowheight)
 
