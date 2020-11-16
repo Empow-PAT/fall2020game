@@ -1,4 +1,6 @@
 from .Annihilator import *
+from .waver import *
+from .sus import *
 from os import listdir
 from os.path import dirname, abspath, join
 
