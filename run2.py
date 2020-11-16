@@ -15,7 +15,10 @@ def main(gameStart=None):
     global nickname
     pygame.init()
     nickname = "Nickname"
-    black = (0, 0, 0)
+    black = pygame_menu.baseimage.BaseImage(
+        image_path="Images/Loading Page.png",
+        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
+    )
     playbutton2 = pygame_menu.baseimage.BaseImage(
         image_path="Images/Play Button.png",
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
@@ -32,17 +35,15 @@ def main(gameStart=None):
     mytheme = pygame_menu.themes.Theme(
         menubar_close_button=False,
         title_font=pygame_menu.font.FONT_MUNRO,
-        title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE,
+        title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE,
         background_color=black,
         widget_selection_effect=pygame_menu.widgets.NoneSelection(),
     )
     menu = pygame_menu.Menu(windowheight-1, windowwidth-1, " ", theme=mytheme)
 
-    menu.add_text_input('Player 1 : ', default='Nickname', onchange=Nickname)
-    playbutton = menu.add_button("        ", gameStart,
-                                 background_color=playbutton2, font_size=72)
-    ships = menu.add_button("         ", gameStart, background_color=ships2,
-                            font_size=36)
+    menu.add_text_input('', default='ENTER NICKNAME HERE', onchange=Nickname, cursor_selection_enable=True, selection_effect= pygame_menu.widgets.HighlightSelection())
+    playbutton = menu.add_button("        ", gameStart, background_color=playbutton2, font_size=72)
+    ships = menu.add_button("         ", gameStart, background_color=ships2, font_size=36)
     pygame.display.update()
 
     menu.mainloop(win)
