@@ -9,12 +9,17 @@ def Nickname(value):
     global nickname
 
     nickname = value
-
+    
+gameStart = False
+def start_game():
+    global gameStart
+    gameStart = True
 
 def main():
     global nickname
+    global gameStart
+    
     pygame.init()
-    nickname = "Nickname"
     black = pygame_menu.baseimage.BaseImage(
         image_path="Images/Loading Page.png",
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
@@ -47,11 +52,6 @@ def main():
         widget_selection_effect=pygame_menu.widgets.NoneSelection(),
     )
     menu = pygame_menu.Menu(windowheight-1, windowwidth-1, " ", theme=mytheme)
-
-    gameStart = False
-    def start_game():
-        global gameStart
-        gameStart = True
 
     menu.add_text_input('', default='ENTER NICKNAME HERE', onchange=Nickname, cursor_selection_enable=True, selection_effect= pygame_menu.widgets.HighlightSelection())
     playbutton = menu.add_button("        ", start_game, background_color=playbutton2, font_size=72)
