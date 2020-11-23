@@ -12,7 +12,9 @@ lightblue=(0,188,255)
 gold = (255,215,0)
 sheildColor = (51,255,255)
 multiplayer = True
-purple = (127,0,225)
+purple = (127,0,225,1)
+windowwidth = 1024
+windowheight = 768
 
 font_name = pygame.font.match_font('arial')
 
@@ -39,6 +41,7 @@ class Annihilator:
         self.dirx = 1
         self.diry = 1
         self.nickName = nickname
+        self.ultTimer = 0
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     def tick(self,keys,win):
@@ -78,18 +81,27 @@ class Annihilator:
                 if self.vely > -self.friction:
                     self.vely = 0
 
+        if keys[pygame.K_q]:
+            if self.ultTimer == 0:
+                ult = Ultimate(self)
+                ults.append(ult)
+                self.ultTimer = 800
+
         self.x += self.velx
         self.y += self.vely
 
         if keys[pygame.K_SPACE]:
             projectile = Projectile_Annihal(self)
             projectiles.append(projectile)
+        if self.ultTimer > 0:
+            self.ultTimer -= 1
 
-        draw_text_sat(win, self.nickName, 24 ,self.x-len(self.nickName)*3, self.y-32)
+        draw_text_sat(win, self.nickName, 18 ,self.x-len(self.nickName)*3, self.y-32)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.rect(win, lightblue, self.rect)
 
 projectiles = []
+ults = []
 
 class Projectile_Annihal:
     def __init__(self,annihilator):
@@ -117,14 +129,18 @@ class Projectile_Annihal:
         pygame.draw.ellipse(win, red, self.rect)
 
 class Ultimate:
-    def __init__ (self):
+    def __init__ (self,Annihilator):
         self.x = Annihilator.x
         self.y = Annihilator.y
         self.diameter = 30
-        self.time
+        self.time = 0
+        self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
+        self.alpha = 255
     def tick(self,win):
         self.diameter += 2
         self.time += 1
+        if self.alpha > 15:
+            self.alpha -= 5
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
-        pygame.draw.ellipse(win, purple, self.rect)
+        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, width=5)

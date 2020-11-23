@@ -34,7 +34,10 @@ def start_game():
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
         annihilator.tick(keys, win)
-
+        annihilator.tick(keys,win)
+        for ult in ults:
+            if ult.time < 120:
+                ult.tick(win)
         for projectile in projectiles:
             projectile.tick(win, windowwidth, windowheight)
 
