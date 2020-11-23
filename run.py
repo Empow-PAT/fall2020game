@@ -20,6 +20,7 @@ def change_nickname(value):
 def start_game():
     run = True
     annihilator = Annihilator(nickname)
+    bot = Bot()
 
     menu.disable()
     while run:
@@ -34,7 +35,7 @@ def start_game():
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
         annihilator.tick(keys, win)
-        annihilator.tick(keys,win)
+        bot.tick(win, annihilator)
         for ult in ults:
             if ult.time < 120:
                 ult.tick(win)
