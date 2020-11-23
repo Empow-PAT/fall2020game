@@ -25,7 +25,7 @@ def draw_text_sat(surf, text, size, x, y):
     surf.blit(text_surface, (x,y))
 
 class Annihilator:
-    def __init__(self):
+    def __init__(self, nickname):
         self.x = 0
         self.y = 0
         self.height = 25.0
@@ -38,7 +38,7 @@ class Annihilator:
         self.friction = 0.4
         self.dirx = 1
         self.diry = 1
-        self.nickName = "Nickname"
+        self.nickName = nickname
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     def tick(self,keys,win):

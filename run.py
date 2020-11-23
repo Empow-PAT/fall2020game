@@ -2,84 +2,70 @@ import sys
 import pygame
 from fall2020game.players import *
 import pygame_menu
+
+pygame.init()
+
+windowwidth = 800
+windowheight = 800
+white = (255, 255, 255)
+black = (0, 0, 0)
+
 nickname = "Javi"
 
-
-def Nickname(value):
+def change_nickname(value):
     global nickname
-
     nickname = value
-    
-gameStart = False
+
 def start_game():
-    global gameStart
-    gameStart = True
-
-def main():
-    global nickname
-    global gameStart
-    
-    pygame.init()
-    black = pygame_menu.baseimage.BaseImage(
-        image_path="Images/Loading Page.png",
-        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
-    )
-    playbutton2 = pygame_menu.baseimage.BaseImage(
-        image_path="Images/Play Button.png",
-        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
-    )
-    ships2 = pygame_menu.baseimage.BaseImage(
-        image_path="Images/Ships.png",
-        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
-    )
-    X = "Images/X Button.png"
-
-    windowwidth = 800
-    windowheight = 800
-    win = pygame.display.set_mode((windowwidth, windowheight))
-
-    pygame.display.set_caption("Starter")
-    black = (0, 0, 0)
-    white = (255, 255, 255)
-
-    myfont = pygame.font.SysFont('Impact', 100)  # change the 30 for a different text size
-    annihilator = Annihilator()
-    mytheme = pygame_menu.themes.Theme(
-        menubar_close_button=False,
-        title_font=pygame_menu.font.FONT_MUNRO,
-        title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE,
-        background_color=black,
-        widget_selection_effect=pygame_menu.widgets.NoneSelection(),
-    )
-    menu = pygame_menu.Menu(windowheight-1, windowwidth-1, " ", theme=mytheme)
-
-    menu.add_text_input('', default='ENTER NICKNAME HERE', onchange=Nickname, cursor_selection_enable=True, selection_effect= pygame_menu.widgets.HighlightSelection())
-    playbutton = menu.add_button("        ", start_game, background_color=playbutton2, font_size=72)
-    ships = menu.add_button("         ", None, background_color=ships2, font_size=36)
-    pygame.display.update()
-
     run = True
+    annihilator = Annihilator(nickname)
+
+    menu.disable()
     while run:
 
         pygame.time.delay(25)
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                run = False
 
-        if not gameStart:
-            menu.draw(win)
-        else:
-            events = pygame.event.get()
-            for event in events:
-                if event.type == pygame.QUIT:
-                    run = False
+        keys = pygame.key.get_pressed()
+        win.fill(black)
+        annihilator.tick(keys, win)
 
-            keys = pygame.key.get_pressed()
-            win.fill(black)
-            annihilator.tick(keys, win)
-
-            for projectile in projectiles:
-                projectile.tick(win, windowwidth, windowheight)
+        for projectile in projectiles:
+            projectile.tick(win, windowwidth, windowheight)
 
         pygame.display.update()
 
 
-if __name__ == '__main__':
-    main()
+backgroundmenu = pygame_menu.baseimage.BaseImage(
+    image_path="Images/Loading Page.png",
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
+)
+playbutton2 = pygame_menu.baseimage.BaseImage(
+    image_path="Images/Play Button.png",
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
+)
+ships2 = pygame_menu.baseimage.BaseImage(
+    image_path="Images/Ships.png",
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
+)
+X = "Images/X Button.png"
+
+win = pygame.display.set_mode((windowwidth, windowheight))
+
+pygame.display.set_caption("Astral Run")
+myfont = pygame.font.SysFont('Impact', 100)  # change the 30 for a different text size
+mytheme = pygame_menu.themes.Theme(
+    menubar_close_button=False,
+    title_font=pygame_menu.font.FONT_MUNRO,
+    title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE,
+    background_color=backgroundmenu,
+)
+menu = pygame_menu.Menu(windowheight-1, windowwidth-1, " ", theme=mytheme)
+
+menu.add_text_input('', default=nickname, onchange=change_nickname)
+playbutton = menu.add_button("        ", start_game, background_color=playbutton2, font_size=72, widget_selection_effect=pygame_menu.widgets.NoneSelection())
+ships = menu.add_button("         ", None, background_color=ships2, font_size=36, widget_selection_effect=pygame_menu.widgets.NoneSelection())
+menu.mainloop(win)
