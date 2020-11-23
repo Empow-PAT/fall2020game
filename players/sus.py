@@ -42,7 +42,8 @@ class Bot:
         self.hp = 1000
         self.nickName = "Nickname"
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        self.speed = 9
+        self.speed = 10
+
 
 
     def tick(self, win, player):
@@ -52,6 +53,12 @@ class Bot:
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.rect(win, lightblue, self.rect)
+
+
+        self.x += 1
+
+        self.y += 1
+
 
 
 
