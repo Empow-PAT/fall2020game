@@ -11,15 +11,16 @@ windowheight = 800
 white = (255, 255, 255)
 black = (0, 0, 0)
 
-nickname = "Javi"
-
+nickname = "Nickname"
+annnihilator = None
 def change_nickname(value):
-    global nickname
+    global nickname, annihilator
     nickname = value
-
 def start_game():
+    global annihilator
     run = True
     annihilator = Annihilator(nickname)
+
     bot = Bot()
 
     menu.disable()

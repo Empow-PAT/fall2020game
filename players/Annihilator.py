@@ -129,9 +129,9 @@ class Projectile_Annihal:
         pygame.draw.ellipse(win, red, self.rect)
 
 class Ultimate:
-    def __init__ (self,Annihilator):
-        self.x = Annihilator.x
-        self.y = Annihilator.y
+    def __init__ (self,annihilator):
+        self.x = annihilator.x
+        self.y = annihilator.y
         self.diameter = 30
         self.time = 0
         self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
@@ -139,8 +139,12 @@ class Ultimate:
         self.alpha = 255
     def tick(self,win):
         self.diameter += 2
+        self.x -= 1
+        self.y -= 1
         self.time += 1
         if self.alpha > 15:
-            self.alpha -= 5
+            self.alpha -= 1.5
+        self.surface.fill((0,0,0,0))
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
-        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, width=5)
+        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, width=15)
+        win.blit(self.surface, (0,0))
