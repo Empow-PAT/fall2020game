@@ -31,6 +31,7 @@ def start_game():
                 run = False
 
         keys = pygame.key.get_pressed()
+        win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
         annihilator.tick(keys, win)
 
