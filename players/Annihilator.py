@@ -12,7 +12,7 @@ lightblue=(0,188,255)
 gold = (255,215,0)
 sheildColor = (51,255,255)
 multiplayer = True
-purple = (127,0,225,1)
+purple = (127,0,225)
 windowwidth = 1024
 windowheight = 768
 
@@ -130,17 +130,19 @@ class Projectile_Annihal:
 
 class Ultimate:
     def __init__ (self,Annihilator):
-        self.x = Annihilator.x
-        self.y = Annihilator.y
         self.diameter = 30
+        self.x = Annihilator.x + self.diameter
+        self.y = Annihilator.y + self.diameter
         self.time = 0
-        self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
-        self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
+        self.rect = pygame.Rect(self.diameter/2, self.diameter/2, self.diameter, self.diameter)
+        self.surface = pygame.Surface((self.diameter, self.diameter),pygame.SRCALPHA)
         self.alpha = 255
     def tick(self,win):
         self.diameter += 2
         self.time += 1
         if self.alpha > 15:
             self.alpha -= 5
-        self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
+        self.rect = pygame.Rect(0,0, self.diameter, self.diameter)
+        self.surface = pygame.Surface((self.diameter, self.diameter))
         pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, width=5)
+        win.blit(self.surface, (self.x, self.y))

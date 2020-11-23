@@ -17,6 +17,10 @@ def change_nickname(value):
     global nickname
     nickname = value
 
+def menubackground():
+    if textin.get_value() == "ENTER NICKNAME" and textin.selected:
+        textin.clear()
+
 def start_game():
     run = True
     annihilator = Annihilator(nickname)
@@ -70,8 +74,8 @@ mytheme = pygame_menu.themes.Theme(
     background_color=backgroundmenu,
 )
 menu = pygame_menu.Menu(windowheight-1, windowwidth-1, " ", theme=mytheme)
-
-menu.add_text_input('', default=nickname, onchange=change_nickname)
+menu.add_label("", selectable= True)
+textin = menu.add_text_input('', default="ENTER NICKNAME", onchange=change_nickname)
 playbutton = menu.add_button("        ", start_game, background_color=playbutton2, font_size=72, widget_selection_effect=pygame_menu.widgets.NoneSelection())
 ships = menu.add_button("         ", None, background_color=ships2, font_size=36, widget_selection_effect=pygame_menu.widgets.NoneSelection())
-menu.mainloop(win)
+menu.mainloop(win, bgfun=menubackground)
