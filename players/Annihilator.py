@@ -8,7 +8,8 @@ black = (0,0,0)
 yellow = (255, 255, 0)
 red = (255,0,0)
 green =  (0,255,0)
-lightblue=(0,188,255)
+annih = pygame.image.load("../Images/Annihilator Concept.png")
+annih = pygame.transform.scale(annih, (65, 65))
 gold = (255,215,0)
 sheildColor = (51,255,255)
 multiplayer = True
@@ -44,7 +45,7 @@ class Annihilator:
         self.ultTimer = 0
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
-    def tick(self,keys,win):
+    def tick(self,keys,win,screen):
         if keys[pygame.K_a]:
             self.velx = -self.speed
             self.dirx = -1
@@ -98,7 +99,7 @@ class Annihilator:
 
         draw_text_sat(win, self.nickName, 18 ,self.x-len(self.nickName)*3, self.y-32)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        pygame.draw.rect(win, lightblue, self.rect)
+        screen.blit(annih, self.rect)
 
 projectiles = []
 ults = []

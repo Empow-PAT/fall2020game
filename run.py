@@ -10,6 +10,8 @@ windowwidth = 800
 windowheight = 800
 white = (255, 255, 255)
 black = (0, 0, 0)
+size = (windowwidth,windowheight)
+screen = pygame.display.set_mode(size)
 
 nickname = "Nickname"
 annnihilator = None
@@ -31,7 +33,6 @@ def start_game():
         for event in events:
             if event.type == pygame.QUIT:
                 run = False
-
         keys = pygame.key.get_pressed()
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
