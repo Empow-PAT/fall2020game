@@ -4,15 +4,22 @@ from fall2020game.players import *
 import pygame_menu
 nickname = "Javi"
 
+
 def Nickname(value):
     global nickname
 
     nickname = value
-
 def main(gameStart=None):
     global nickname
     pygame.init()
     nickname = "Nickname"
+
+    def menubackground():
+        if textin.get_value() == "ENTER NICKNAME" and textin.selected:
+            textin.clear()
+        textin._cursor_color=(255, 255, 255)
+
+
     black = pygame_menu.baseimage.BaseImage(
         image_path="Images/Loading Page.png",
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
@@ -40,13 +47,14 @@ def main(gameStart=None):
     )
     menu = pygame_menu.Menu(windowheight-1, windowwidth-1, " ", theme= mytheme)
 
-
-    menu.add_text_input('', default='ENTER NICKNAME HERE', onchange=Nickname, cursor_selection_enable=True, selection_effect= pygame_menu.widgets.HighlightSelection())
+    menu.add_label("", selectable=True)
+    textin = menu.add_text_input('', default="ENTER NICKNAME", onchange=Nickname)
     playbutton = menu.add_button("        ", gameStart, background_color=playbutton2, font_size=72)
+
     ships = menu.add_button("         ", gameStart, background_color=ships2, font_size=36)
     pygame.display.update()
 
-    menu.mainloop(win)
+    menu.mainloop(win, bgfun=menubackground)
 if __name__ == '__main__':
 
 
