@@ -1,7 +1,7 @@
 import sys
 import pygame
 from fall2020game.players import *
-
+import pickle_func
 
 def main():
     pygame.init()
@@ -12,9 +12,12 @@ def main():
     pygame.display.set_caption("Starter")
     black = (0, 0, 0)
     white = (255, 255, 255)
+    pickle_func.create_file('coins')
+    pickle_func.create_file('username')
+    coins = pickle_func.read('coins')
+    default_user = pickle_func.read('username')
 
     myfont = pygame.font.SysFont('Impact', 30)  # change the 30 for a different text size
-
 
     run = True
     while run:
@@ -32,7 +35,6 @@ def main():
         win.blit(textsurface, (0, 0))  # change the coordinates to put it in a different place
 
         pygame.display.update()
-
 
 if __name__ == '__main__':
     main()
