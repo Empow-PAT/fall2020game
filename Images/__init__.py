@@ -10,14 +10,11 @@ def load_sprites():
     """Load the image sprites from this folder, for easy access."""
     sprites = {}
     for file_name in listdir(HERE):
-        if file_name.startswith('sprite_') and file_name.endswith('.png'):
-            name_wo_sprite = file_name[len('sprite_'):]
-            name_wo_png = name_wo_sprite.split('.')[0]
+        if file_name.endswith('.png'):
             file_full_path = join(HERE, file_name)
-            sprites[name_wo_png] = pygame.image.load(file_full_path)
-
+            sprites[file_name] = pygame.image.load(file_full_path)
     return sprites
 
 
 sprites = load_sprites()
-
+print(sprites)
