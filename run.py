@@ -41,7 +41,8 @@ def start_game():
             if ult.time < 120:
                 ult.tick(win)
         for projectile in projectiles:
-            projectile.tick(win, windowwidth, windowheight)
+            #if not projectile.velx == 0 and not projectile.vely == 0:
+            projectile.tick(win, windowwidth, windowheight,bot)
 
         pygame.display.update()
 

@@ -1,7 +1,7 @@
 import pygame
 import random
 import time
-
+from fall2020game.players import sus
 
 white = (255, 255, 255)
 black = (0,0,0)
@@ -38,8 +38,7 @@ class Annihilator:
         self.vely = 0
         self.hp = 1000
         self.friction = 0.4
-        self.dirx = 1
-        self.diry = 1
+        self.dir = "right"
         self.nickName = nickname
         self.ultTimer = 0
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
@@ -47,11 +46,12 @@ class Annihilator:
     def tick(self,keys,win):
         if keys[pygame.K_a]:
             self.velx = -self.speed
-            self.dirx = -1
+            self.dir = "left"
         elif keys[pygame.K_d]:
             self.velx = self.speed
-            self.dirx=1
+            self.dir = "right"
         else:
+            self.dirx=0
             if self.velx > 0:
                 if self.velx > self.friction:
                     self.velx -= self.friction
@@ -65,11 +65,12 @@ class Annihilator:
 
         if keys[pygame.K_w]:
             self.vely = -self.speed
-            self.diry = -1
+            self.dir = "up"
         elif keys[pygame.K_s]:
             self.vely = self.speed
-            self.diry = 1
+            self.dir = "down"
         else:
+            self.diry=0
             if self.vely > 0:
                 if self.vely > self.friction:
                     self.vely -= self.friction
@@ -85,7 +86,7 @@ class Annihilator:
             if self.ultTimer == 0:
                 ult = Ultimate(self)
                 ults.append(ult)
-                self.ultTimer = 800
+                self.ultTimer = 200
 
         self.x += self.velx
         self.y += self.vely
@@ -102,7 +103,7 @@ class Annihilator:
 
 projectiles = []
 ults = []
-
+bot = sus.Bot()
 class Projectile_Annihal:
     def __init__(self,annihilator):
         self.x = annihilator.x
@@ -114,14 +115,31 @@ class Projectile_Annihal:
 
         self.velx = annihilator.speed*self.velMultiply*annihilator.dirx
         self.vely = annihilator.speed*self.velMultiply*annihilator.diry
+        if annihilator.dir == "right":
+            self.velx = annihilator.speed * self.velMultiply
+            self.vely=0
+        if annihilator.dir == "left":
+            self.velx = annihilator.speed * self.velMultiply*-1
+            self.vely = 0
+        if annihilator.dir == "up":
+            self.velx = 0
+            self.vely = annihilator.speed * self.velMultiply*-1
+        if annihilator.dir == "down":
+            self.velx = 0
+            self.vely = annihilator.speed * self.velMultiply
+
         self.friction = 0.4
-        #if self.velx == 0 and self.vely == 0:
-            #self.velx = annihilator.dirx*annihilator.speed
-    def tick(self,win,windowwidth,windowheight):
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+
+
+    def tick(self,win,windowwidth,windowheight,bot):
         self.x += self.velx
         self.y += self.vely
 
         if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight:
+            projectiles.remove(self)
+        if self.rect.colliderect(bot.rect):
+            bot.hp -= 10
             projectiles.remove(self)
 
 
@@ -138,13 +156,16 @@ class Ultimate:
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
         self.alpha = 255
     def tick(self,win):
-        self.diameter += 2
-        self.x -= 1
-        self.y -= 1
-        self.time += 1
+        self.diameter += 4
+        self.x -= 2
+        self.y -= 2
+        self.time += 2
         if self.alpha > 15:
-            self.alpha -= 1.5
+            self.alpha -= 4.5
+
         self.surface.fill((0,0,0,0))
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
+        if self.rect.colliderect(bot.rect):
+            bot.hp -= 1
         pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, width=15)
         win.blit(self.surface, (0,0))
