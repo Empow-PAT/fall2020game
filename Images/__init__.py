@@ -13,7 +13,7 @@ def load_sprites():
     for file_name in listdir(HERE):
         if file_name.startswith('') and file_name.endswith('.png'):
             file_full_path = join(HERE, file_name)
-            sprites[file_full_path] = pygame.image.load(file_full_path)
+            sprites[file_name] = pygame.image.load(file_full_path)
 
     return sprites
 
