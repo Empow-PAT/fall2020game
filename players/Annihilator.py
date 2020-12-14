@@ -2,9 +2,12 @@ import pygame
 import random
 import time
 from fall2020game.players import sus
+from fall2020game.Images import sprites
 
 white = (255, 255, 255)
 black = (0,0,0)
+annihilatorimg = sprites["Annihilator.png"]
+annihilatorimg = pygame.transform.scale(annihilatorimg, (42,42))
 yellow = (255, 255, 0)
 red = (255,0,0)
 green =  (0,255,0)
@@ -30,8 +33,8 @@ class Annihilator:
     def __init__(self, nickname):
         self.x = 0
         self.y = 0
-        self.height = 25.0
-        self.width = 25.0
+        self.height = 38.0
+        self.width = 38.0
         #friction, slope, upwards velocity, x velocity
         self.speed = 12
         self.velx = 0
@@ -99,15 +102,23 @@ class Annihilator:
         self.gui = "Hp of " + self.nickName + " is " + str(self.hp)
         draw_text_sat(win, self.gui, 18, self.x - len(self.gui) * 3, self.y - 32)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        pygame.draw.rect(win, lightblue, self.rect)
+        if self.dir == "right":
+            annihiRotate = pygame.transform.rotate(annihilatorimg, 270)
+        if self.dir == "left":
+            annihiRotate = pygame.transform.rotate(annihilatorimg, 90)
+        if self.dir == "up":
+            annihiRotate = pygame.transform.rotate(annihilatorimg, 0)
+        if self.dir == "down":
+            annihiRotate = pygame.transform.rotate(annihilatorimg, 180)
+        win.blit(annihiRotate, self.rect)
 
 projectiles = []
 ults = []
 bot = sus.Bot()
 class Projectile_Annihal:
     def __init__(self,annihilator):
-        self.x = annihilator.x
-        self.y = annihilator.y
+        self.x = annihilator.x + 18
+        self.y = annihilator.y + 17
         self.height = 10.0
         self.width = 10.0
         # friction, slope, upwards velocity, x velocity
