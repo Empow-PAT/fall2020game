@@ -20,6 +20,7 @@ def start_game():
     global annihilator
     run = True
     annihilator = Annihilator(nickname)
+    #tank = Tank(nickname)
 
     bot = Bot()
 
@@ -36,6 +37,7 @@ def start_game():
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
         annihilator.tick(keys, win)
+        #tank.tick(keys, win)
         bot.tick(win, annihilator)
         for ult in ults:
             if ult.time < 120:

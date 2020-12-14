@@ -107,8 +107,8 @@ bot = sus.Bot()
 
 class Sheilds:
     def __init__(self):
-        self.width = Tank.width
-        self.height = Tank.height
+        self.width = Tank.width+5
+        self.height = Tank.height+5
         self.x = Tank.x
         self.y = Tank.y
         self.alph = 0
@@ -179,22 +179,9 @@ class Ultimate_Tank:
     def __init__ (self,tank):
         self.x = tank.x
         self.y = tank.y
-        self.diameter = 30
         self.time = 0
         self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
         self.alpha = 255
     def tick(self,win):
-        self.diameter += 4
-        self.x -= 2
-        self.y -= 2
-        self.time += 2
-        if self.alpha > 15:
-            self.alpha -= 4.5
-
-        self.surface.fill((0,0,0,0))
-        self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
-        if self.rect.colliderect(bot.rect):
-            bot.hp -= 1
-        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, width=15)
-        win.blit(self.surface, (0,0))
+        pass

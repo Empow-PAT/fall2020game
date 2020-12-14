@@ -44,9 +44,9 @@ class Bot:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         win.blit(bot, self.rect)
 
-        self.vely = player.vely + random.randint(-5, 5)
+        self.vely = player.vely + random.randint(-10, 10)
 
-        self.velx = player.velx + random.randint(-5, 5)
+        self.velx = player.velx + random.randint(-10, 10)
 
         self.y += self.vely
         self.x += self.velx
