@@ -1,6 +1,7 @@
 import os
 import pickle
 import platform
+import win32con, win32api
 
 def create_file(filename: str):
     if not os.path.isfile(filename):
@@ -20,5 +21,3 @@ def read(filename: str):
         loaded_data = pickle.load(f)
         f.close()
         return loaded_data
-
-print(platform.system())
