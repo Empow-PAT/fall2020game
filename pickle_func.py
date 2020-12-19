@@ -1,7 +1,6 @@
 import os
 import pickle
 import platform
-import win32con, win32api
 
 def create_file(filename: str):
     if not os.path.isfile(filename):
@@ -10,6 +9,7 @@ def create_file(filename: str):
             os.system(f'attrib +h {filename}')
         elif platform.system() == 'Darwin':
             os.rename(filename, f'.{filename}')
+    write(filename, "")
 
 def write(filename: str, data):
     with open(filename, 'wb') as f:
