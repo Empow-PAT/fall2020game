@@ -3,6 +3,7 @@ import pygame
 from fall2020game.players import *
 from fall2020game.sprites import *
 import pygame_menu
+import pickle_func
 
 pygame.init()
 
@@ -10,6 +11,12 @@ windowwidth = 800
 windowheight = 800
 white = (255, 255, 255)
 black = (0, 0, 0)
+
+pickle_func.create_file('coins')
+pickle_func.create_file('username')
+coins = pickle_func.read('coins')
+default_user = pickle_func.read('username')
+
 
 nickname = "Nickname"
 annnihilator = None
