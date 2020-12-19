@@ -72,10 +72,11 @@ mytheme = pygame_menu.themes.Theme(
     title_font=pygame_menu.font.FONT_MUNRO,
     title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE,
     background_color=backgroundmenu,
+    widget_selection_effect=pygame_menu.widgets.NoneSelection(),
 )
 menu = pygame_menu.Menu(windowheight-1, windowwidth-1, " ", theme=mytheme)
 menu.add_label("", selectable= True)
-textin = menu.add_text_input('', default="ENTER NICKNAME", onchange=change_nickname)
-playbutton = menu.add_button("        ", start_game, background_color=playbutton2, font_size=72, widget_selection_effect=pygame_menu.widgets.NoneSelection())
-ships = menu.add_button("         ", None, background_color=ships2, font_size=36, widget_selection_effect=pygame_menu.widgets.NoneSelection())
+textin = menu.add_text_input('', default="ENTER NICKNAME", onchange=change_nickname, selection_effect=pygame_menu.widgets.HighlightSelection())
+playbutton = menu.add_button("        ", start_game, background_color=playbutton2, font_size=72)
+ships = menu.add_button("         ", None, background_color=ships2, font_size=36)
 menu.mainloop(win, bgfun=menubackground)
