@@ -1,3 +1,4 @@
+"""File that combines all the files, as shown at the 4&5 lines, and runs them coherently. """
 import sys
 import pygame
 from fall2020game.players import *
@@ -32,7 +33,6 @@ def start_game():
     run = True
     annihilator = Annihilator(nickname)
     #tank = Tank(nickname)
-
     bot = Bot()
 
     menu.disable()
@@ -49,7 +49,10 @@ def start_game():
         win.blit(sprites["apod1"], (0, 0))
         annihilator.tick(keys, win)
         #tank.tick(keys, win)
-        bot.tick(win, annihilator)
+        if bot.hp > 0:
+            bot.tick(win, annihilator)
+        else:
+            bot.rect = pygame.Rect(1000000000000,10000000000,0,0)
         for ult in ults:
             if ult.time < 120:
                 ult.tick(win)

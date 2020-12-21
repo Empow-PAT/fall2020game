@@ -1,3 +1,4 @@
+"""This is a python file which has every object that the annihilator ship class will generally use"""
 import pygame
 import random
 import time
@@ -99,7 +100,7 @@ class Annihilator:
             projectiles.append(projectile)
         if self.ultTimer > 0:
             self.ultTimer -= 1
-        self.gui = "Hp of " + self.nickName + " is " + str(self.hp)
+        self.gui = self.nickName + "'s Hp: " + str(self.hp)
         draw_text_sat(win, self.gui, 18, self.x - len(self.gui) * 3, self.y - 32)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         if self.dir == "right":
@@ -147,10 +148,9 @@ class Projectile_Annihal:
         self.x += self.velx
         self.y += self.vely
 
-        if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight:
-            projectiles.remove(self)
         if self.rect.colliderect(bot.rect):
             bot.hp -= 10
+        if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight or self.rect.colliderect(bot.rect):
             projectiles.remove(self)
 
 
@@ -177,6 +177,8 @@ class Ultimate:
         self.surface.fill((0,0,0,0))
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
         if self.rect.colliderect(bot.rect):
+            pass
+        if (self.x + (self.diameter/2) < bot.x) or (self.x - (self.diameter/2) > bot.x) or (self.y + self.diameter/2 < bot.y) or (self.y - (self.diameter/2) > bot.y):
             bot.hp -= 1
         pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, 15)
         win.blit(self.surface, (0,0))
