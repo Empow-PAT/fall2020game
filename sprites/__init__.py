@@ -27,7 +27,7 @@ apod1 = req1.json()
 variable = apod1
 name = "apod1"
 
-if not os.path.exists(name+".jpg"):
+if not os.path.isfile(name+".jpg"):
     with open(os.path.join("sprites/",name+".jpg"), "wb") as f:
         # try:
         f.write(requests.get(variable["url"]).content)
