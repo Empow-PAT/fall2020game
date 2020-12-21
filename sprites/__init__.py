@@ -16,4 +16,3 @@ def load_sprites():
     return sprites
 
 sprites = load_sprites()
-
