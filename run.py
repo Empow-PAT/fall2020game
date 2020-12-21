@@ -1,3 +1,4 @@
+"""File that combines all the files, as shown at the 4&5 lines, and runs them coherently. """
 import sys
 import pygame
 from fall2020game.players import *
@@ -60,6 +61,7 @@ def start_game():
             if ult.time < 120:
                 ult.tick(win)
         for projectile in projectiles:
+            #if not projectile.velx == 0 and not projectile.vely == 0:
             projectile.tick(win, windowwidth, windowheight,bot)
         for projectilEn in enemyProjs:
             projectilEn.tick(win,annihilator)
