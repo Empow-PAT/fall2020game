@@ -180,5 +180,5 @@ class Ultimate:
             pass
         if (self.x + (self.diameter/2) < bot.x) or (self.x - (self.diameter/2) > bot.x) or (self.y + self.diameter/2 < bot.y) or (self.y - (self.diameter/2) > bot.y):
             bot.hp -= 1
-        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, width=15)
+        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, 15)
         win.blit(self.surface, (0,0))
