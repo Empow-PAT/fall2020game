@@ -1,16 +1,18 @@
-"""File that combines all the files, as shown at the 4&5 lines, and runs them coherently. """
 import sys
 import pygame
 from fall2020game.players import *
 from fall2020game.sprites import *
 import pygame_menu
-#from fall2020game.tests.pickle_func.py import *
+import pickle_func
 
 pygame.init()
-
+"""Defines the width of the room."""
 windowwidth = 800
+"""Defines the height of the room."""
 windowheight = 800
+"""Defines what white is(will come in handy later on.)"""
 white = (255, 255, 255)
+"""Defines what black is(will come in handy later on.)"""
 black = (0, 0, 0)
 
 #pickle_func.create_file('coins')
@@ -62,20 +64,22 @@ def start_game():
         for projectilEn in enemyProjs:
             projectilEn.tick(win,annihilator)
         pygame.display.update()
-
-
+"""Defining the background menu."""
 backgroundmenu = pygame_menu.baseimage.BaseImage(
     image_path="Images/Loading Page.png",
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
+"""Defining the play button."""
 playbutton2 = pygame_menu.baseimage.BaseImage(
     image_path="Images/Play Button.png",
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
+"""Defining the ships button."""
 ships2 = pygame_menu.baseimage.BaseImage(
     image_path="Images/Ships.png",
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
+
 X = "Images/X Button.png"
 
 win = pygame.display.set_mode((windowwidth, windowheight))
