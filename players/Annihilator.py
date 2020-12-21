@@ -178,5 +178,5 @@ class Ultimate:
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
         if self.rect.colliderect(bot.rect):
             bot.hp -= 1
-        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, width=15)
+        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, 15)
         win.blit(self.surface, (0,0))
