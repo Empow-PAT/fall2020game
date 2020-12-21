@@ -1,3 +1,4 @@
+"""This is a python file which has every object that the tank ship class will generally use"""
 import pygame
 import random
 import time
