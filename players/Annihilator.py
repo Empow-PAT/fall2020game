@@ -118,7 +118,7 @@ ults = []
 bot = sus.Bot()
 class Projectile_Annihal:
     def __init__(self,annihilator):
-        self.x = annihilator.x + 18
+        self.x = annihilator.x + 16.5
         self.y = annihilator.y + 17
         self.height = 10.0
         self.width = 10.0

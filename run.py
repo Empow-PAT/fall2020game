@@ -32,7 +32,7 @@ def start_game():
     global annihilator
     run = True
     annihilator = Annihilator(nickname)
-    #tank = Tank(nickname)
+    tank = Tank(nickname)
     bot = Bot()
 
     menu.disable()
@@ -57,9 +57,9 @@ def start_game():
             if ult.time < 120:
                 ult.tick(win)
         for projectile in projectiles:
-            #if not projectile.velx == 0 and not projectile.vely == 0:
             projectile.tick(win, windowwidth, windowheight,bot)
-
+        for projectilEn in Enemy_projs:
+            projectilEn.tick(win)
         pygame.display.update()
 
 
