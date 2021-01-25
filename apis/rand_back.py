@@ -20,7 +20,7 @@ while True:
     # Checks if the random Month is equal to the current month
     if str(Month) == split_date[1]:
         # Creates a Day variable using a random number from 1 to the current day in the month
-        Day = randint(1, int(split_date[2]))
+        Day = randint(1, int(split_date[2])-1)
     else:
         # Creates a Day variable using a random number from 1 to 30
         Day = randint(1, 30)
@@ -39,3 +39,5 @@ while True:
 print(apod_url)
 # Prints the headers that the API returns
 print(req.headers)
+print(req.json())
+print(apod_url)
