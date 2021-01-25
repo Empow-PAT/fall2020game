@@ -12,8 +12,8 @@ windowheight = 800
 white = (255, 255, 255)
 black = (0, 0, 0)
 
-pickle_func.create_file('coins')
 pickle_func.create_file('username')
+pickle_func.create_file('coins')
 coins = pickle_func.read('coins')
 default_user = pickle_func.read('username')
 
