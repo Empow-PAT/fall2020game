@@ -18,7 +18,7 @@ else:
 if str(Month) == split_date[1]:
     Day = randint(1, int(split_date[2]))
 else:
-    Day = randint(1, 30)
+    Day = randint(1, 28)
 
 
 apodddds = "https://api.nasa.gov/planetary/apod?api_key=Guv4egEEeC4kQxHBTEu4DDH26HGW4cWLNCYo2Npd&date="+str(Year)+"-"+str(Month)+"-"+str(Day)+""
@@ -26,6 +26,7 @@ req1 = requests.get(apodddds)
 apod1 = req1.json()
 variable = apod1
 name = "apod1"
+
 
 if not os.path.exists(name+".jpg"):
     with open(os.path.join("sprites/",name+".jpg"), "wb") as f:

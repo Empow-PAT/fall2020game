@@ -29,11 +29,10 @@ class Bot:
         #gravity, friction, slope, upwards velocity, x velocity
         self.velx = 0
         self.vely = 0
-        self.hp = 1000
+        self.hp = 10
         self.nickName = "Nickname"
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.speed = 9
-
 
     def tick(self, win, player):
         # (dx, dy) = ((player.x - self.x) / (math.sqrt((player.x - self.x) ** 2 + (player.y - self.y) ** 2)+.01),

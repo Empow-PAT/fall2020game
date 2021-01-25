@@ -53,6 +53,8 @@ def start_game():
     #tank = Tank(nickname)
 
     bot = Bot()
+    BotPlay = [bot]
+    StorageBotPlay = 1
 
     menu.disable()
 
@@ -73,12 +75,59 @@ def start_game():
         win.fill(black)
 
         win.blit(sprites["apod1"], (0, 0))
-
+        AllBotsDead = True
         annihilator.tick(keys, win)
-
+        Level1 = 0
+        Level2 = 0
+        Level3 = 0
+        for item in BotPlay:
+             item.tick(win, annihilator)
+             if item.hp > 0:
+                 AllBotsDead = False
         #tank.tick(keys, win)
+        if AllBotsDead == False:
+            bot.tick(win, annihilator)
+        if AllBotsDead == True:
+                bot2 = Bot()
+                bot3 = Bot()
+                BotPlay.append(bot2)
+                BotPlay.append(bot3)
+                Level1 += 1
 
-        bot.tick(win, annihilator)
+        if AllBotsDead == True and Level1 == 1:
+                bot4 = Bot()
+                bot5 = Bot()
+                bot6 = Bot()
+                bot7 = Bot()
+                BotPlay.append(bot4)
+                BotPlay.append(bot5)
+                BotPlay.append(bot6)
+                BotPlay.append(bot7)
+                Level2 += 1
+
+                if AllBotsDead == True and Level2 == 1:
+                    bot8 = Bot()
+                    bot9 = Bot()
+                    bot10 = Bot()
+                    bot11 = Bot()
+                    bot12 = Bot()
+                    bot13 = Bot()
+                    bot14 = Bot()
+                    bot15 = Bot()
+                    BotPlay.append(bot8)
+                    BotPlay.append(bot9)
+                    BotPlay.append(bot10)
+                    BotPlay.append(bot11)
+                    BotPlay.append(bot12)
+                    BotPlay.append(bot13)
+                    BotPlay.append(bot14)
+                    BotPlay.append(bot15)
+
+
+
+
+
+
 
         for ult in ults:
 
