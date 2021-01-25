@@ -3,7 +3,7 @@ import pygame
 from fall2020game.players import *
 from fall2020game.sprites import *
 import pygame_menu
-#from fall2020game.tests.pickle_func.py import *
+import pickle_func
 
 pygame.init()
 """Defines the width of the room."""
