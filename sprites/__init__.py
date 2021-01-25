@@ -28,7 +28,7 @@ while True:
         Day = randint(1, int(split_date[2]))
     else:
         # Creates a Day variable using a random number from 1 to 30
-        Day = randint(1, 30)
+        Day = randint(1, 28)
 
     req = requests.get(f"https://api.nasa.gov/planetary/apod?api_key=Guv4egEEeC4kQxHBTEu4DDH26HGW4cWLNCYo2Npd&date={Year}-{Month}-{Day}")
     # Prints the media type of the image and the url of the image
