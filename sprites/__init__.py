@@ -43,11 +43,13 @@ while True:
 # Sets the name variable to "apod1"
 name = "apod1"
 
-f = open(os.path.join(f"sprites/{name}.jpg"), "wb")
+if not os.path.isfile(f"{name}.jpg"):
+    open(os.path.join(f'{name}.jpg'), 'xb')
+
+f = open(os.path.join(f"{name}.jpg"), "wb")
 
 # Checks if the file "apod1.jpg" doesn't exist
-if not os.path.isfile(f"sprites/{name}.jpg"):
-    open(os.path.join(f'sprites/{name}.jpg'), 'xb')
+
 
 f.write(requests.get(apod_url).content)
 
@@ -66,7 +68,9 @@ def load_sprites():
         if file_name == name + (".jpg"):
             name_wo_png = file_name.split('.')[0]
             file_full_path = join(HERE, file_name)
+            print(file_full_path)
             sprites[name_wo_png] = pygame.image.load(file_full_path)
+
     return sprites
 
 

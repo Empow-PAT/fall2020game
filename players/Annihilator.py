@@ -162,12 +162,14 @@ class Ultimate:
         self.x = annihilator.x
         self.y = annihilator.y
         self.diameter = 30
+        self.radius = 15
         self.time = 0
         self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
         self.alpha = 255
     def tick(self,win):
         self.diameter += 4
+        self.radius = self.diameter / 2
         self.x -= 2
         self.y -= 2
         self.time += 2
@@ -175,7 +177,7 @@ class Ultimate:
             self.alpha -= 4.5
 
         self.surface.fill((0,0,0,0))
-        self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
+        self.rect = pygame.Rect(self.x - self.radius, self.y - self.radius, self.diameter, self.diameter)
         if self.rect.colliderect(bot.rect):
             bot.hp -= 1
         pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, 15)
