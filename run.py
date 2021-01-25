@@ -15,12 +15,13 @@ white = (255, 255, 255)
 """Defines what black is(will come in handy later on.)"""
 black = (0, 0, 0)
 
+# Creates a file called "coins" using pickle
 pickle_func.create_file('coins')
-
+# Creates a file called "username" using pickle
 pickle_func.create_file('username')
-
+# Creates a variable with the value of the "coins" file
 coins = pickle_func.read('coins')
-
+# Creates a variable with the value of the "username" file
 default_user = pickle_func.read('username')
 
 
