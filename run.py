@@ -6,6 +6,7 @@ from fall2020game.sprites import *
 import pygame_menu
 import pickle_func
 
+#start pygame!
 pygame.init()
 """Defines the width of the room."""
 windowwidth = 800
