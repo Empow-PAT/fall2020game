@@ -1,4 +1,3 @@
-"""File that combines all the files, as shown at the 4&5 lines, and runs them coherently. """
 import sys
 import pygame
 from fall2020game.players import *
@@ -6,17 +5,22 @@ from fall2020game.sprites import *
 import pygame_menu
 import pickle_func
 
-#start pygame!
 pygame.init()
-
+"""Defines the width of the room."""
 windowwidth = 800
+"""Defines the height of the room."""
 windowheight = 800
+"""Defines what white is(will come in handy later on.)"""
 white = (255, 255, 255)
+"""Defines what black is(will come in handy later on.)"""
 black = (0, 0, 0)
 
 pickle_func.create_file('coins')
+
 pickle_func.create_file('username')
+
 coins = pickle_func.read('coins')
+
 default_user = pickle_func.read('username')
 
 
@@ -34,7 +38,10 @@ def start_game():
     run = True
     annihilator = Annihilator(nickname)
     #tank = Tank(nickname)
+
     bot = Bot()
+    BotPlay = [bot]
+    StorageBotPlay = 1
 
     menu.disable()
     while run:
@@ -48,12 +55,17 @@ def start_game():
         keys = pygame.key.get_pressed()
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
+        AllBotsDead = True
         annihilator.tick(keys, win)
+        Level1 = 0
+        Level2 = 0
+        Level3 = 0
+        for item in BotPlay:
+             item.tick(win, annihilator)
+             if item.hp > 0:
+                 AllBotsDead = False
         #tank.tick(keys, win)
-        if bot.hp > 0:
-            bot.tick(win, annihilator)
-        else:
-            bot.rect = pygame.Rect(1000000000000,10000000000,0,0)
+        bot.tick(win, annihilator)
         for ult in ults:
             if ult.time < 120:
                 ult.tick(win)
@@ -62,20 +74,22 @@ def start_game():
             projectile.tick(win, windowwidth, windowheight,bot)
 
         pygame.display.update()
-
-
+"""Defining the background menu."""
 backgroundmenu = pygame_menu.baseimage.BaseImage(
     image_path="Images/Loading Page.png",
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
+"""Defining the play button."""
 playbutton2 = pygame_menu.baseimage.BaseImage(
     image_path="Images/Play Button.png",
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
+"""Defining the ships button."""
 ships2 = pygame_menu.baseimage.BaseImage(
     image_path="Images/Ships.png",
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
+
 X = "Images/X Button.png"
 
 win = pygame.display.set_mode((windowwidth, windowheight))
