@@ -32,7 +32,7 @@ class Bot:
         self.hp = 500
         self.nickName = "Nickname"
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        self.speed = 9
+        self.speed = 6
         self.timer = 0
 
 
@@ -54,8 +54,8 @@ class Bot:
         self.y += self.vely
         self.x += self.velx
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        if self.timer == 40:
-            projectilEn = Enemy_proj(self)
+        if self.timer >= 5:
+            projectilEn = Enemy_proj(player,self)
             enemyProjs.append(projectilEn)
             self.timer=0
 
@@ -64,28 +64,49 @@ class Bot:
 enemyProjs = []
 
 class Enemy_proj:
-    def __init__(self,annihilator):
-        self.x = annihilator.x + 16.5
-        self.y = annihilator.y + 17
+    def __init__(self,annihilator, bot):
+        self.x = bot.x + 16.5
+        self.y = bot.y + 17
         self.height = 10.0
         self.width = 10.0
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         # friction, slope, upwards velocity, x velocity
         self.velMultiply = 1.5
-    def tick(self, win, player):
-        if self.x > player.x:
-            self.velx = -player.speed + 3
-        else:
-            self.velx = player.speed - 3
 
-        if self.y < player.y:
-            self.vely = player.speed - 3
+        if self.x > annihilator.x:
+            self.velx = -9
         else:
-            self.vely = -player.speed + 3
+            self.velx = 9
+
+        if self.y < annihilator.y:
+            self.vely = 9
+        else:
+            self.vely = -9
+
+
+        if abs(self.x-annihilator.x) > abs(self.y-annihilator.y):
+            if self.x - annihilator.x>0:
+                self.velx=-9
+                self.vely=0
+            else:
+                self.velx = 9
+                self.vely = 0
+        else:
+            if self.y - annihilator.y>0:
+                self.vely=-9
+                self.velx=0
+            else:
+                self.vely = 9
+                self.velx = 0
+
+    def tick(self, win, annihilator):
+        if self.rect.colliderect(annihilator.rect):
+            annihilator.hp -= 10
+            enemyProjs.remove(self)
         self.y += self.vely
         self.x += self.velx
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-
+        pygame.draw.ellipse(win, lightblue, self.rect)
 
 
 

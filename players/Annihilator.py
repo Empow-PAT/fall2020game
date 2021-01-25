@@ -90,7 +90,7 @@ class Annihilator:
             if self.ultTimer == 0:
                 ult = Ultimate(self)
                 ults.append(ult)
-                self.ultTimer = 200
+                self.ultTimer = 10
 
         self.x += self.velx
         self.y += self.vely

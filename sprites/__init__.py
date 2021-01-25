@@ -18,7 +18,7 @@ else:
 if str(Month) == split_date[1]:
     Day = randint(1, int(split_date[2]))
 else:
-    Day = randint(1, 30)
+    Day = randint(1, 28)
 
 
 apodddds = "https://api.nasa.gov/planetary/apod?api_key=Guv4egEEeC4kQxHBTEu4DDH26HGW4cWLNCYo2Npd&date="+str(Year)+"-"+str(Month)+"-"+str(Day)+""

@@ -4,7 +4,7 @@ import pygame
 from fall2020game.players import *
 from fall2020game.sprites import *
 import pygame_menu
-import pickle_func
+#from fall2020game.tests.pickle_func.py import *
 
 pygame.init()
 
@@ -13,10 +13,10 @@ windowheight = 800
 white = (255, 255, 255)
 black = (0, 0, 0)
 
-pickle_func.create_file('coins')
-pickle_func.create_file('username')
-coins = pickle_func.read('coins')
-default_user = pickle_func.read('username')
+#pickle_func.create_file('coins')
+#pickle_func.create_file('username')
+#coins = pickle_func.read('coins')
+#default_user = pickle_func.read('username')
 
 
 nickname = "Nickname"
@@ -47,7 +47,8 @@ def start_game():
         keys = pygame.key.get_pressed()
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
-        annihilator.tick(keys, win)
+        if annihilator.hp > 0:
+            annihilator.tick(keys, win)
         #tank.tick(keys, win)
         if bot.hp > 0:
             bot.tick(win, annihilator)
@@ -58,8 +59,8 @@ def start_game():
                 ult.tick(win)
         for projectile in projectiles:
             projectile.tick(win, windowwidth, windowheight,bot)
-        for projectilEn in Enemy_projs:
-            projectilEn.tick(win)
+        for projectilEn in enemyProjs:
+            projectilEn.tick(win,annihilator)
         pygame.display.update()
 
 
