@@ -3,7 +3,7 @@ import pygame
 from fall2020game.players import *
 from fall2020game.sprites import *
 import pygame_menu
-import pickle_func
+#from fall2020game.tests.pickle_func.py import *
 
 pygame.init()
 """Defines the width of the room."""
@@ -38,8 +38,7 @@ def start_game():
     global annihilator
     run = True
     annihilator = Annihilator(nickname)
-    #tank = Tank(nickname)
-
+    tank = Tank(nickname)
     bot = Bot()
     BotPlay = [bot]
     StorageBotPlay = 1
@@ -65,15 +64,20 @@ def start_game():
              item.tick(win, annihilator)
              if item.hp > 0:
                  AllBotsDead = False
+        if annihilator.hp > 0:
+            annihilator.tick(keys, win)
         #tank.tick(keys, win)
-        bot.tick(win, annihilator)
+        if bot.hp > 0:
+            bot.tick(win, annihilator)
+        else:
+            bot.rect = pygame.Rect(1000000000000,10000000000,0,0)
         for ult in ults:
             if ult.time < 120:
                 ult.tick(win)
         for projectile in projectiles:
-            #if not projectile.velx == 0 and not projectile.vely == 0:
             projectile.tick(win, windowwidth, windowheight,bot)
-
+        for projectilEn in enemyProjs:
+            projectilEn.tick(win,annihilator)
         pygame.display.update()
 """Defining the background menu."""
 backgroundmenu = pygame_menu.baseimage.BaseImage(
