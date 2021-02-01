@@ -56,7 +56,7 @@ def start_game():
         keys = pygame.key.get_pressed()
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
-        AllBotsDead = True
+        AllBotsDead = False
         annihilator.tick(keys, win)
         Level1 = 0
         Level2 = 0
@@ -68,7 +68,7 @@ def start_game():
         if annihilator.hp > 0:
             annihilator.tick(keys, win)
         #tank.tick(keys, win)
-        if bot.hp > 0:
+        if bot.hp > 1:
             bot.tick(win, annihilator)
         else:
             bot.rect = pygame.Rect(1000000000000,10000000000,0,0)
