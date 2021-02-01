@@ -38,6 +38,8 @@ def start_game():
     annihilator = Annihilator(nickname)
     tank = Tank(nickname)
     bot = Bot()
+    BotPlay = [bot]
+    StorageBotPlay = 1
 
     menu.disable()
     while run:
@@ -51,6 +53,15 @@ def start_game():
         keys = pygame.key.get_pressed()
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
+        AllBotsDead = True
+        annihilator.tick(keys, win)
+        Level1 = 0
+        Level2 = 0
+        Level3 = 0
+        for item in BotPlay:
+             item.tick(win, annihilator)
+             if item.hp > 0:
+                 AllBotsDead = False
         if annihilator.hp > 0:
             annihilator.tick(keys, win)
         #tank.tick(keys, win)
@@ -64,8 +75,7 @@ def start_game():
         for projectile in projectiles:
             #if not projectile.velx == 0 and not projectile.vely == 0:
             projectile.tick(win, windowwidth, windowheight,bot)
-        for projectilEn in enemyProjs:
-            projectilEn.tick(win,annihilator)
+
         pygame.display.update()
 """Defining the background menu."""
 backgroundmenu = pygame_menu.baseimage.BaseImage(
