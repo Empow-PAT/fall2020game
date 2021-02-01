@@ -1,4 +1,3 @@
-"""File that combines all the files, as shown at the 4&5 lines, and runs them coherently. """
 import sys
 import pygame
 from fall2020game.players import *
@@ -17,9 +16,13 @@ white = (255, 255, 255)
 """Defines what black is(will come in handy later on.)"""
 black = (0, 0, 0)
 
+# Creates a file called "coins" using pickle
 #pickle_func.create_file('coins')
+# Creates a file called "username" using pickle
 #pickle_func.create_file('username')
+# Creates a variable with the value of the "coins" file
 #coins = pickle_func.read('coins')
+# Creates a variable with the value of the "username" file
 #default_user = pickle_func.read('username')
 
 
@@ -73,9 +76,9 @@ def start_game():
             if ult.time < 120:
                 ult.tick(win)
         for projectile in projectiles:
-            #if not projectile.velx == 0 and not projectile.vely == 0:
             projectile.tick(win, windowwidth, windowheight,bot)
-
+        for projectilEn in enemyProjs:
+            projectilEn.tick(win,annihilator)
         pygame.display.update()
 """Defining the background menu."""
 backgroundmenu = pygame_menu.baseimage.BaseImage(
