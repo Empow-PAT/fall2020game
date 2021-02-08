@@ -1,3 +1,4 @@
+"""This is a python file which has every object that the annihilator ship class will generally use"""
 import pygame
 import random
 import time
@@ -89,7 +90,7 @@ class Annihilator:
             if self.ultTimer == 0:
                 ult = Ultimate(self)
                 ults.append(ult)
-                self.ultTimer = 200
+                self.ultTimer = 10
 
         self.x += self.velx
         self.y += self.vely
@@ -99,7 +100,7 @@ class Annihilator:
             projectiles.append(projectile)
         if self.ultTimer > 0:
             self.ultTimer -= 1
-        self.gui = "Hp of " + self.nickName + " is " + str(self.hp)
+        self.gui = self.nickName + "'s Hp: " + str(self.hp)
         draw_text_sat(win, self.gui, 18, self.x - len(self.gui) * 3, self.y - 32)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         if self.dir == "right":
@@ -117,7 +118,7 @@ ults = []
 bot = sus.Bot()
 class Projectile_Annihal:
     def __init__(self,annihilator):
-        self.x = annihilator.x + 18
+        self.x = annihilator.x + 16.5
         self.y = annihilator.y + 17
         self.height = 10.0
         self.width = 10.0
@@ -147,10 +148,9 @@ class Projectile_Annihal:
         self.x += self.velx
         self.y += self.vely
 
-        if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight:
-            projectiles.remove(self)
         if self.rect.colliderect(bot.rect):
             bot.hp -= 10
+        if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight or self.rect.colliderect(bot.rect):
             projectiles.remove(self)
 
 
@@ -162,12 +162,14 @@ class Ultimate:
         self.x = annihilator.x
         self.y = annihilator.y
         self.diameter = 30
+        self.radius = 15
         self.time = 0
         self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
         self.alpha = 255
     def tick(self,win):
         self.diameter += 4
+        self.radius = self.diameter / 2
         self.x -= 2
         self.y -= 2
         self.time += 2
@@ -175,8 +177,10 @@ class Ultimate:
             self.alpha -= 4.5
 
         self.surface.fill((0,0,0,0))
-        self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
+        self.rect = pygame.Rect(self.x - self.radius, self.y - self.radius, self.diameter, self.diameter)
         if self.rect.colliderect(bot.rect):
+            pass
+        if (self.x + (self.diameter/2) < bot.x) or (self.x - (self.diameter/2) > bot.x) or (self.y + self.diameter/2 < bot.y) or (self.y - (self.diameter/2) > bot.y):
             bot.hp -= 1
-        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, width=15)
+        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, 15)
         win.blit(self.surface, (0,0))
