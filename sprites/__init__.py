@@ -1,3 +1,5 @@
+__all__ = ["sprites"]
+
 import pygame
 
 from os import listdir

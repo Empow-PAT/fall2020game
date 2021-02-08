@@ -1,9 +1,7 @@
-import sys
 import pygame
+import pygame_menu
 from fall2020game.players import *
 from fall2020game.sprites import *
-import pygame_menu
-import pickle_func
 
 #start pygame!
 pygame.init()
@@ -28,13 +26,19 @@ black = (0, 0, 0)
 
 nickname = "Nickname"
 annnihilator = None
+
+
 def change_nickname(value):
     global nickname, annihilator
     nickname = value
+
+
 def menubackground():
     if textin.get_value() == "ENTER NICKNAME" and textin.selected:
         textin.clear()
     textin._cursor_color=(255, 255, 255)
+
+
 def start_game():
     global annihilator
     run = True
@@ -80,6 +84,8 @@ def start_game():
         for projectilEn in enemyProjs:
             projectilEn.tick(win,annihilator)
         pygame.display.update()
+
+
 """Defining the background menu."""
 backgroundmenu = pygame_menu.baseimage.BaseImage(
     image_path="Images/Loading Page.png",
