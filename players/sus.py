@@ -105,7 +105,7 @@ class Enemy_proj:
                 self.velx = 0
 
     def tick(self, win, annihilator):
-        if self.rect.colliderect(annihilator.rect):
+        if self.rect.colliderect(annihilator.rect) and annihilator.hp > 0:
             annihilator.hp -= 10
             enemyProjs.remove(self)
         self.y += self.vely

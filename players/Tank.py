@@ -172,7 +172,7 @@ class Projectile_Tank:
 
         if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight:
             projectiles_tank.remove(self)
-        if self.rect.colliderect(bot.rect):
+        if self.rect.colliderect(bot.rect) and bot.hp > 0:
             bot.hp -= 10
             projectiles_tank.remove(self)
 
