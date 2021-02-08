@@ -3,7 +3,7 @@ This is a python file which has every object that the annihilator ship class
 will generally use
 """
 
-__all__ = ["Annihilator", "Projectile_Annihal"]
+__all__ = ["Annihilator", "Projectile_Annihal", "ults", "projectiles"]
 
 import pygame
 import random

@@ -1,4 +1,4 @@
-__all__ = ["Bot", "draw_text_sat"]
+__all__ = ["Bot", "draw_text_sat", "Enemy_proj", "enemyProjs"]
 
 import pygame
 import random
