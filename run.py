@@ -85,24 +85,26 @@ def start_game():
             projectilEn.tick(win,annihilator)
         pygame.display.update()
 
+from os import path
+here = path.dirname(path.abspath(__file__))
+print(here)
 
 """Defining the background menu."""
 backgroundmenu = pygame_menu.baseimage.BaseImage(
-    image_path="Images/Loading Page.png",
+    image_path = path.join(here, "Images/Loading Page.png"),
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
 """Defining the play button."""
 playbutton2 = pygame_menu.baseimage.BaseImage(
-    image_path="Images/Play Button.png",
+    image_path=path.join(here, "Images/Play Button.png"),
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
 """Defining the ships button."""
 ships2 = pygame_menu.baseimage.BaseImage(
-    image_path="Images/Ships.png",
+    image_path=path.join(here, "Images/Ships.png"),
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
-
-X = "Images/X Button.png"
+X = path.join(here, "Images/X Button.png")
 
 win = pygame.display.set_mode((windowwidth, windowheight))
 
