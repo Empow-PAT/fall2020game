@@ -1,20 +1,14 @@
-"""
-This is a python file which has every object that the annihilator ship class
-will generally use
-"""
+"""This is a python file which has every object that the tank ship class will generally use"""
 
-__all__ = ["Annihilator", "Projectile_Annihal", "ults", "projectiles"]
+__all__ = ["Tank", "Sheilds", "Projectile_Tank", "Ultimate_Tank"]
 
 import pygame
 import random
 import time
 from fall2020game.players import sus
-from fall2020game.Images import sprites
 
 white = (255, 255, 255)
 black = (0,0,0)
-annihilatorimg = sprites["Annihilator.png"]
-annihilatorimg = pygame.transform.scale(annihilatorimg, (42,42))
 yellow = (255, 255, 0)
 red = (255,0,0)
 green =  (0,255,0)
@@ -36,17 +30,18 @@ def draw_text_sat(surf, text, size, x, y):
     text_rect.midtop = (x,y)
     surf.blit(text_surface, (x,y))
 
-class Annihilator:
+
+class Tank:
     def __init__(self, nickname):
         self.x = 0
         self.y = 0
-        self.height = 38.0
-        self.width = 38.0
+        self.height = 25.0
+        self.width = 25.0
         #friction, slope, upwards velocity, x velocity
-        self.speed = 12
+        self.speed = 7
         self.velx = 0
         self.vely = 0
-        self.hp = 1000
+        self.hp = 2000
         self.friction = 0.4
         self.dir = "right"
         self.nickName = nickname
@@ -94,57 +89,78 @@ class Annihilator:
 
         if keys[pygame.K_q]:
             if self.ultTimer == 0:
-                ult = Ultimate(self)
-                ults.append(ult)
-                self.ultTimer = 50
+                ult = Ultimate_Tank(self)
+                ults_Tank.append(ult)
+                self.ultTimer = 200
 
         self.x += self.velx
         self.y += self.vely
 
         if keys[pygame.K_SPACE]:
-            projectile = Projectile_Annihal(self)
-            projectiles.append(projectile)
+            projectile = Projectile_Tank(self)
+            projectiles_tank.append(projectile)
         if self.ultTimer > 0:
             self.ultTimer -= 1
-        self.gui = self.nickName + "'s Hp: " + str(self.hp)
-        draw_text_sat(win, self.gui, 18, self.x - len(self.gui) * 3, self.y - 32)
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        if self.dir == "right":
-            annihiRotate = pygame.transform.rotate(annihilatorimg, 270)
-        if self.dir == "left":
-            annihiRotate = pygame.transform.rotate(annihilatorimg, 90)
-        if self.dir == "up":
-            annihiRotate = pygame.transform.rotate(annihilatorimg, 0)
-        if self.dir == "down":
-            annihiRotate = pygame.transform.rotate(annihilatorimg, 180)
-        win.blit(annihiRotate, self.rect)
 
-projectiles = []
-ults = []
+        draw_text_sat(win, self.nickName, 18 ,self.x-len(self.nickName)*3, self.y-32)
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        pygame.draw.rect(win, lightblue, self.rect)
+
+projectiles_tank = []
+ults_Tank = []
 bot = sus.Bot()
-class Projectile_Annihal:
-    def __init__(self,annihilator):
-        self.x = annihilator.x + 16
-        self.y = annihilator.y + 17
+
+class Sheilds:
+    def __init__(self):
+        self.width = Tank.width+5
+        self.height = Tank.height+5
+        self.x = Tank.x
+        self.y = Tank.y
+        self.alph = 0
+        self.rect = pygame.Rect(self.x,self.y, self.width, self.height)
+        self.surface = pygame.Surface((self.width,self.height))
+        self.hp = 5
+    def tick(self,win):
+        self.x = Tank.x
+        self.y = Tank.y
+        for projectile in projectiles_tank:
+            if self.rect.colliderect(projectile):
+                self.alph = 0
+                self.hp -= 1
+                projectiles_tank.remove(projectile)
+        if self.alph < 0:
+            self.alph -= 2
+        else:
+            self.alph = 0
+
+        self.y = Tank.y - 10
+        self.rect = pygame.Rect(self.x,self.y, self.width, self.height)
+        self.surface.fill((51,255,255,self.alph))
+        win.blit(self.surface,(self.x,self.y))
+
+class Projectile_Tank:
+    def __init__(self,tank):
+        self.x = tank.x
+        self.y = tank.y
         self.height = 10.0
         self.width = 10.0
         # friction, slope, upwards velocity, x velocity
-        self.velMultiply = 1.5
+        self.velMultiply = 2
 
-        self.velx = annihilator.speed*self.velMultiply*annihilator.dirx
-        self.vely = annihilator.speed*self.velMultiply*annihilator.diry
-        if annihilator.dir == "right":
-            self.velx = annihilator.speed * self.velMultiply
+        self.velx = tank.speed*self.velMultiply*tank.dirx
+        self.vely = tank.speed*self.velMultiply*tank.diry
+        if tank.dir == "right":
+            self.velx = tank.speed * self.velMultiply
             self.vely=0
-        if annihilator.dir == "left":
-            self.velx = annihilator.speed * self.velMultiply*-1
+        if tank.dir == "left":
+            self.velx = tank.speed * self.velMultiply*-1
             self.vely = 0
-        if annihilator.dir == "up":
+        if tank.dir == "up":
             self.velx = 0
-            self.vely = annihilator.speed * self.velMultiply*-1
-        if annihilator.dir == "down":
+            self.vely = tank.speed * self.velMultiply*-1
+        if tank.dir == "down":
             self.velx = 0
-            self.vely = annihilator.speed * self.velMultiply
+            self.vely = tank.speed * self.velMultiply
 
         self.friction = 0.4
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
@@ -154,37 +170,23 @@ class Projectile_Annihal:
         self.x += self.velx
         self.y += self.vely
 
+        if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight:
+            projectiles_tank.remove(self)
         if self.rect.colliderect(bot.rect):
             bot.hp -= 10
-        if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight or self.rect.colliderect(bot.rect):
-            projectiles.remove(self)
+            projectiles_tank.remove(self)
 
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.ellipse(win, red, self.rect)
 
-class Ultimate:
-    def __init__ (self,annihilator):
-        self.x = annihilator.x
-        self.y = annihilator.y
-        self.diameter = 30
+class Ultimate_Tank:
+    def __init__ (self,tank):
+        self.x = tank.x
+        self.y = tank.y
         self.time = 0
         self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
         self.alpha = 255
     def tick(self,win):
-        self.diameter += 8
-        self.x -= 4
-        self.y -= 4
-        self.time += 2
-        if self.alpha > 15:
-            self.alpha -= 4.5
-
-        self.surface.fill((0,0,0,0))
-        self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
-        if self.rect.colliderect(bot.rect):
-            pass
-        if (self.x + (self.diameter/2) < bot.x) or (self.x - (self.diameter/2) > bot.x) or (self.y + self.diameter/2 < bot.y) or (self.y - (self.diameter/2) > bot.y):
-            bot.hp -= 1
-        pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, width=15)
-        win.blit(self.surface, (0,0))
+        pass
