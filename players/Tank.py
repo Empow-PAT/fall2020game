@@ -1,4 +1,7 @@
 """This is a python file which has every object that the tank ship class will generally use"""
+
+__all__ = ["Tank", "Sheilds", "Projectile_Tank", "Ultimate_Tank"]
+
 import pygame
 import random
 import time
@@ -26,6 +29,7 @@ def draw_text_sat(surf, text, size, x, y):
     text_rect = text_surface.get_rect()
     text_rect.midtop = (x,y)
     surf.blit(text_surface, (x,y))
+
 
 class Tank:
     def __init__(self, nickname):

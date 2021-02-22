@@ -1,3 +1,5 @@
+__all__ = ["sprites"]
+
 import pygame
 
 from os import listdir
@@ -40,20 +42,22 @@ while True:
         # Breaks out of the forever loop
         break
 
-# Sets the name variable to "apod1"
+# Sets the name variable to apod1 (Astronomical Picture of the Day)
+
+HERE = dirname(abspath(__file__))
 name = "apod1"
+file_path = join(HERE, f"{name}.jpg")
 
-if not os.path.isfile(f"{name}.jpg"):
-    open(os.path.join(f'{name}.jpg'), 'xb')
+if not os.path.isfile(file_path):
+    open(os.path.join(file_path), 'xb')
 
-f = open(os.path.join(f"{name}.jpg"), "wb")
+f = open(os.path.join(file_path), "wb")
 
 # Checks if the file "apod1.jpg" doesn't exist
 
 
 f.write(requests.get(apod_url).content)
-
-HERE = dirname(abspath(__file__))
+f.close()
 
 
 def load_sprites():

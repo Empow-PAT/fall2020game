@@ -1,3 +1,5 @@
+__all__ = ["Bot", "draw_text_sat", "Enemy_proj", "enemyProjs"]
+
 import pygame
 import random
 import math
@@ -13,12 +15,15 @@ gold = (255,215,0)
 font_name = pygame.font.match_font('arial')
 bot = sprites["Enemy Ship.png"]
 bot = pygame.transform.scale(bot, (30,30))
+
+
 def draw_text_sat(surf, text, size, x, y):
     font = pygame.font.Font(font_name, size)
     text_surface = font.render(text, True, white)
     text_rect = text_surface.get_rect()
     text_rect.midtop = (x,y)
     surf.blit(text_surface, (x,y))
+
 
 class Bot:
     def __init__(self):

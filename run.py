@@ -1,9 +1,9 @@
 """File that combines all the files, as shown at the 4&5 lines, and runs them coherently. """
 import sys
 import pygame
+import pygame_menu
 from fall2020game.players import *
 from fall2020game.sprites import *
-import pygame_menu
 #from fall2020game.tests.pickle_func.py import *
 
 pygame.init()
@@ -21,13 +21,19 @@ black = (0, 0, 0)
 
 nickname = "Nickname"
 annnihilator = None
+
+
 def change_nickname(value):
     global nickname, annihilator
     nickname = value
+
+
 def menubackground():
     if textin.get_value() == "ENTER NICKNAME" and textin.selected:
         textin.clear()
     textin._cursor_color=(255, 255, 255)
+
+
 def start_game():
     global annihilator
     run = True
@@ -63,20 +69,26 @@ def start_game():
             projectilEn.tick(win,annihilator)
         pygame.display.update()
 
+from os import path
+here = path.dirname(path.abspath(__file__))
+print(here)
 
+"""Defining the background menu."""
 backgroundmenu = pygame_menu.baseimage.BaseImage(
-    image_path="Images/Loading Page.png",
+    image_path = path.join(here, "Images/Loading Page.png"),
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
 playbutton2 = pygame_menu.baseimage.BaseImage(
-    image_path="Images/Play Button.png",
+    image_path=path.join(here, "Images/Play Button.png"),
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
 ships2 = pygame_menu.baseimage.BaseImage(
-    image_path="Images/Ships.png",
+    image_path=path.join(here, "Images/Ships.png"),
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
-X = "Images/X Button.png"
+
+X = path.join(here, "Images/X Button.png")
+
 
 win = pygame.display.set_mode((windowwidth, windowheight))
 
