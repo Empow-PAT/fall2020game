@@ -98,7 +98,6 @@ class Projectile_Bot:
             if self.rect.colliderect(bot.rect):
                 bot.hp -= 10
                 projectiles.remove(self)
-=======
 enemyProjs = []
 
 class Enemy_proj:
