@@ -54,14 +54,14 @@ class Bot:
 
         #Works but is a little weird when on top of player
         if self.x > player.x:
-            self.velx = -player.speed+3
+            self.velx = -player.speed+1
         else:
-            self.velx = player.speed-3
+            self.velx = player.speed-1
 
         if self.y < player.y:
-            self.vely = player.speed - 3
+            self.vely = player.speed - 1
         else:
-            self.vely = -player.speed + 3
+            self.vely = -player.speed + 1
 
         self.y += self.vely
         self.x += self.velx
@@ -123,29 +123,29 @@ class Enemy_proj:
 
 
         if self.x > annihilator.x:
-            self.velx = -9
+            self.velx = -3
         else:
-            self.velx = 9
+            self.velx = 3
 
         if self.y < annihilator.y:
-            self.vely = 9
+            self.vely = 3
         else:
-            self.vely = -9
+            self.vely = -3
 
 
         if abs(self.x-annihilator.x) > abs(self.y-annihilator.y):
             if self.x - annihilator.x>0:
-                self.velx=-9
+                self.velx=-3
                 self.vely=0
             else:
-                self.velx = 9
+                self.velx = 3
                 self.vely = 0
         else:
             if self.y - annihilator.y>0:
-                self.vely=-9
+                self.vely=-3
                 self.velx=0
             else:
-                self.vely = 9
+                self.vely = 3
                 self.velx = 0
 
     def tick(self, win, annihilator):
