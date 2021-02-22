@@ -96,7 +96,7 @@ class Annihilator:
             if self.ultTimer == 0:
                 ult = Ultimate(self)
                 ults.append(ult)
-                self.ultTimer = 10
+                self.ultTimer = 50
 
         self.x += self.velx
         self.y += self.vely
@@ -124,7 +124,7 @@ ults = []
 bot = sus.Bot()
 class Projectile_Annihal:
     def __init__(self,annihilator):
-        self.x = annihilator.x + 16.5
+        self.x = annihilator.x + 16
         self.y = annihilator.y + 17
         self.height = 10.0
         self.width = 10.0
@@ -173,9 +173,9 @@ class Ultimate:
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
         self.alpha = 255
     def tick(self,win):
-        self.diameter += 4
-        self.x -= 2
-        self.y -= 2
+        self.diameter += 8
+        self.x -= 4
+        self.y -= 4
         self.time += 2
         if self.alpha > 15:
             self.alpha -= 4.5
