@@ -43,7 +43,7 @@ class Annihilator:
         self.height = 38.0
         self.width = 38.0
         #friction, slope, upwards velocity, x velocity
-        self.speed = 12
+        self.speed = 5
         self.velx = 0
         self.vely = 0
         self.hp = 1000
