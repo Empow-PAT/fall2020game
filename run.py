@@ -1,26 +1,21 @@
+"""File that combines all the files, as shown at the 4&5 lines, and runs them coherently. """
+import sys
 import pygame
 import pygame_menu
 from fall2020game.players import *
 from fall2020game.sprites import *
+#from fall2020game.tests.pickle_func.py import *
 
-#start pygame!
 pygame.init()
-"""Defines the width of the room."""
+
 windowwidth = 800
-"""Defines the height of the room."""
 windowheight = 800
-"""Defines what white is(will come in handy later on.)"""
 white = (255, 255, 255)
-"""Defines what black is(will come in handy later on.)"""
 black = (0, 0, 0)
 
-# Creates a file called "coins" using pickle
 #pickle_func.create_file('coins')
-# Creates a file called "username" using pickle
 #pickle_func.create_file('username')
-# Creates a variable with the value of the "coins" file
 #coins = pickle_func.read('coins')
-# Creates a variable with the value of the "username" file
 #default_user = pickle_func.read('username')
 
 
@@ -45,8 +40,6 @@ def start_game():
     annihilator = Annihilator(nickname)
     tank = Tank(nickname)
     bot = Bot()
-    BotPlay = [bot]
-    StorageBotPlay = 1
 
     menu.disable()
     while run:
@@ -60,19 +53,10 @@ def start_game():
         keys = pygame.key.get_pressed()
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
-        AllBotsDead = False
-        annihilator.tick(keys, win)
-        Level1 = 0
-        Level2 = 0
-        Level3 = 0
-        for item in BotPlay:
-             item.tick(win, annihilator)
-             if item.hp > 0:
-                 AllBotsDead = False
         if annihilator.hp > 0:
             annihilator.tick(keys, win)
         #tank.tick(keys, win)
-        if bot.hp > 1:
+        if bot.hp > 0:
             bot.tick(win, annihilator)
         else:
             bot.rect = pygame.Rect(1000000000000,10000000000,0,0)
@@ -94,17 +78,17 @@ backgroundmenu = pygame_menu.baseimage.BaseImage(
     image_path = path.join(here, "Images/Loading Page.png"),
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
-"""Defining the play button."""
 playbutton2 = pygame_menu.baseimage.BaseImage(
     image_path=path.join(here, "Images/Play Button.png"),
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
-"""Defining the ships button."""
 ships2 = pygame_menu.baseimage.BaseImage(
     image_path=path.join(here, "Images/Ships.png"),
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
+
 X = path.join(here, "Images/X Button.png")
+
 
 win = pygame.display.set_mode((windowwidth, windowheight))
 
