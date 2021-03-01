@@ -1,6 +1,6 @@
 """This is a python file which has every object that the tank ship class will generally use"""
 
-__all__ = ["Tank", "Sheilds", "Projectile_Tank", "Ultimate_Tank"]
+__all__ = ["Tank", "Sheilds", "Projectile_Tank"]
 
 import pygame
 import random
@@ -125,7 +125,7 @@ class Sheilds:
         self.y = Tank.y
         for projectile in projectiles_tank:
             if self.rect.colliderect(projectile):
-                self.alph = 0
+                self.alph = 1
                 self.hp -= 1
                 projectiles_tank.remove(projectile)
         if self.alph < 0:
@@ -180,13 +180,15 @@ class Projectile_Tank:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.ellipse(win, red, self.rect)
 
-class Ultimate_Tank:
-    def __init__ (self,tank):
-        self.x = tank.x
-        self.y = tank.y
-        self.time = 0
-        self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
-        self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
-        self.alpha = 255
-    def tick(self,win):
-        pass
+#class Ultimate_Tank:
+    #def __init__ (self,tank):
+        #self.x = tank.x
+        #self.y = tank.y
+        #self.width
+        #self.time = 0
+        #self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
+        #self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
+        #self.alpha = 255
+        #self.timer = 0
+    #def tick(self,win):
+        #self.timer+=1

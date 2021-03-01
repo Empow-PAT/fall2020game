@@ -1,7 +1,6 @@
 __all__ = ["Bot", "draw_text_sat", "Enemy_proj", "enemyProjs"]
 
 import pygame
-from fall2020game.players import Annihilator
 import random
 import math
 from fall2020game.Images import sprites
@@ -40,7 +39,6 @@ class Bot:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.speed = 6
         self.timer = 0
-        self.StaggerTimer = 0
 
 
     def tick(self, win, player):
@@ -48,34 +46,25 @@ class Bot:
         win.blit(bot, self.rect)
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        win.blit(bot, self.rect)
 
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-
-        #Jittery movement
-        #self.vely = player.vely + random.randint(-10, 10)
-        #self.velx = player.velx + random.randint(-10, 10)
-
-        #Works but is a little weird when on top of player
         if self.x > player.x:
-            self.velx = -player.speed+1
+            self.velx = -player.speed+3
         else:
-            self.velx = player.speed-1
+            self.velx = player.speed-3
 
         if self.y < player.y:
-            self.vely = player.speed - 1
+            self.vely = player.speed - 3
         else:
-            self.vely = -player.speed + 1
+            self.vely = -player.speed + 3
         self.y += self.vely
         self.x += self.velx
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         if self.timer >= 5:
             projectilEn = Enemy_proj(player,self)
             enemyProjs.append(projectilEn)
-            self.timer = 0
+            self.timer=0
 
         self.timer += 1
-        self.StaggerTimer +=1
 
 enemyProjs = []
 
@@ -116,14 +105,11 @@ class Enemy_proj:
                 self.velx = 0
 
     def tick(self, win, annihilator):
-        if self.rect.colliderect(annihilator.rect) and annihilator.hp > 0:
+        if self.rect.colliderect(annihilator.rect):
             annihilator.hp -= 10
             enemyProjs.remove(self)
         self.y += self.vely
         self.x += self.velx
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.ellipse(win, lightblue, self.rect)
-
-
-
 
