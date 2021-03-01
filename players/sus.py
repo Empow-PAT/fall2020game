@@ -35,10 +35,10 @@ class Bot:
         #gravity, friction, slope, upwards velocity, x velocity
         self.velx = 0
         self.vely = 0
-        self.hp = 500
+        self.hp = 250
         self.nickName = "Nickname"
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        self.speed = 2
+        self.speed = 1
         self.timer = 0
         self.StaggerTimer = 0
 
@@ -90,29 +90,29 @@ class Enemy_proj:
         self.velMultiply = 1.5
 
         if self.x > annihilator.x:
-            self.velx = -4
+            self.velx = -12
         else:
-            self.velx = 4
+            self.velx = 12
 
         if self.y < annihilator.y:
-            self.vely = 4
+            self.vely = 12
         else:
-            self.vely = -4
+            self.vely = -12
 
 
         if abs(self.x-annihilator.x) > abs(self.y-annihilator.y):
             if self.x - annihilator.x>0:
-                self.velx=-9
+                self.velx=-5
                 self.vely=0
             else:
-                self.velx = 9
+                self.velx = 5
                 self.vely = 0
         else:
             if self.y - annihilator.y>0:
-                self.vely=-9
+                self.vely=-5
                 self.velx=0
             else:
-                self.vely = 9
+                self.vely = 5
                 self.velx = 0
 
     def tick(self, win, annihilator):

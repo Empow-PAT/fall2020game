@@ -43,7 +43,7 @@ class Annihilator:
         self.height = 38.0
         self.width = 38.0
         #friction, slope, upwards velocity, x velocity
-        self.speed = 4
+        self.speed = 5
         self.velx = 0
         self.vely = 0
         self.hp = 1000
@@ -165,8 +165,8 @@ class Projectile_Annihal:
 
 class Ultimate:
     def __init__ (self,annihilator):
-        self.x = annihilator.x
-        self.y = annihilator.y
+        self.x = annihilator.x + 16
+        self.y = annihilator.y + 16
         self.diameter = 30
         self.radius = 15
         self.time = 0
@@ -174,10 +174,8 @@ class Ultimate:
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
         self.alpha = 255
     def tick(self,win):
-        self.diameter += 4
+        self.diameter += 8
         self.radius = self.diameter / 2
-        self.x -= 4
-        self.y -= 4
         self.time += 2
         if self.alpha > 15:
             self.alpha -= 4.5
