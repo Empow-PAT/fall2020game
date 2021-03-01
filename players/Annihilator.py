@@ -154,7 +154,7 @@ class Projectile_Annihal:
         self.x += self.velx
         self.y += self.vely
 
-        if self.rect.colliderect(bot.rect) and bot.hp > 0:
+        if self.rect.colliderect(bot.rect):
             bot.hp -= 10
         if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight or self.rect.colliderect(bot.rect):
             projectiles.remove(self)
@@ -186,7 +186,7 @@ class Ultimate:
         self.rect = pygame.Rect(self.x - self.radius, self.y - self.radius, self.diameter, self.diameter)
         if self.rect.colliderect(bot.rect):
             pass
-        if (self.x + (self.diameter/2) < bot.x) and bot.hp > 0 or (self.x - (self.diameter/2) > bot.x) and bot.hp > 0 or (self.y + self.diameter/2 < bot.y) and bot.hp > 0 or (self.y - (self.diameter/2) > bot.y) and bot.hp > 0:
+        if (self.x + (self.diameter/2) < bot.x) or (self.x - (self.diameter/2) > bot.x) or (self.y + self.diameter/2 < bot.y) or (self.y - (self.diameter/2) > bot.y):
             bot.hp -= 1
         pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, 15)
         win.blit(self.surface, (0,0))
