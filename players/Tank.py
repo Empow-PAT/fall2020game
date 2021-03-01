@@ -1,6 +1,6 @@
 """This is a python file which has every object that the tank ship class will generally use"""
 
-__all__ = ["Tank", "Sheilds", "Projectile_Tank", "Ultimate_Tank"]
+__all__ = ["Tank", "Sheilds", "Projectile_Tank"]
 
 import pygame
 import random
