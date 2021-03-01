@@ -159,8 +159,7 @@ ships2 = pygame_menu.baseimage.BaseImage(
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
 )
 
-X = path.join(here, "Images/X Button.png")
-
+X = path.join(here, "Images/X Button.png")     
 
 win = pygame.display.set_mode((windowwidth, windowheight))
 
