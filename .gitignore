@@ -132,3 +132,4 @@ dmypy.json
 .idea/
 
 sprites/apod*
+/apod1.jpg
