@@ -63,7 +63,6 @@ def start_game():
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
         AllBotsDead = True
-        annihilator.tick(keys, win)
         Level1 = 0
 
         Level2 = 0

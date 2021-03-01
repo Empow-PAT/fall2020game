@@ -38,7 +38,7 @@ class Bot:
         self.hp = 500
         self.nickName = "Nickname"
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        self.speed = 6
+        self.speed = 2
         self.timer = 0
         self.StaggerTimer = 0
 
@@ -90,14 +90,14 @@ class Enemy_proj:
         self.velMultiply = 1.5
 
         if self.x > annihilator.x:
-            self.velx = -9
+            self.velx = -4
         else:
-            self.velx = 9
+            self.velx = 4
 
         if self.y < annihilator.y:
-            self.vely = 9
+            self.vely = 4
         else:
-            self.vely = -9
+            self.vely = -4
 
 
         if abs(self.x-annihilator.x) > abs(self.y-annihilator.y):

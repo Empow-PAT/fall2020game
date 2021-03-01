@@ -43,7 +43,7 @@ class Annihilator:
         self.height = 38.0
         self.width = 38.0
         #friction, slope, upwards velocity, x velocity
-        self.speed = 12
+        self.speed = 4
         self.velx = 0
         self.vely = 0
         self.hp = 1000
@@ -176,8 +176,8 @@ class Ultimate:
     def tick(self,win):
         self.diameter += 4
         self.radius = self.diameter / 2
-        self.x -= 2
-        self.y -= 2
+        self.x -= 4
+        self.y -= 4
         self.time += 2
         if self.alpha > 15:
             self.alpha -= 4.5
