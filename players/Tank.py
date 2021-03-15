@@ -1,8 +1,12 @@
 """This is a python file which has every object that the tank ship class will generally use"""
+
+__all__ = ["Tank", "Sheilds", "Projectile_Tank", "Ultimate_Tank"]
+
 import pygame
 import random
 import time
 from fall2020game.players import sus
+from fall2020game.Images import sprites
 
 white = (255, 255, 255)
 black = (0,0,0)
@@ -11,6 +15,8 @@ red = (255,0,0)
 green =  (0,255,0)
 lightblue=(0,188,255)
 gold = (255,215,0)
+tankimg = sprites["Tank.png"]
+tankimg = pygame.transform.scale(tankimg, (42,42))
 sheildColor = (51,255,255)
 multiplayer = True
 purple = (127,0,225,1)
@@ -26,6 +32,7 @@ def draw_text_sat(surf, text, size, x, y):
     text_rect = text_surface.get_rect()
     text_rect.midtop = (x,y)
     surf.blit(text_surface, (x,y))
+
 
 class Tank:
     def __init__(self, nickname):
@@ -97,6 +104,15 @@ class Tank:
             projectiles_tank.append(projectile)
         if self.ultTimer > 0:
             self.ultTimer -= 1
+        if self.dir == "right":
+            tankrotate = pygame.transform.rotate(tankimg, 270)
+        if self.dir == "left":
+            tankrotate = pygame.transform.rotate(tankimg, 90)
+        if self.dir == "up":
+            tankrotate = pygame.transform.rotate(tankimg, 0)
+        if self.dir == "down":
+            tankrotate = pygame.transform.rotate(tankimg, 180)
+        win.blit(tankrotate, self.rect)
 
         draw_text_sat(win, self.nickName, 18 ,self.x-len(self.nickName)*3, self.y-32)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
@@ -121,7 +137,7 @@ class Sheilds:
         self.y = Tank.y
         for projectile in projectiles_tank:
             if self.rect.colliderect(projectile):
-                self.alph = 1
+                self.alph = 0
                 self.hp -= 1
                 projectiles_tank.remove(projectile)
         if self.alph < 0:
@@ -176,15 +192,13 @@ class Projectile_Tank:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.ellipse(win, red, self.rect)
 
-#class Ultimate_Tank:
-    #def __init__ (self,tank):
-        #self.x = tank.x
-        #self.y = tank.y
-        #self.width
-        #self.time = 0
-        #self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
-        #self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
-        #self.alpha = 255
-        #self.timer = 0
-    #def tick(self,win):
-        #self.timer+=1
+class Ultimate_Tank:
+    def __init__ (self,tank):
+        self.x = tank.x
+        self.y = tank.y
+        self.time = 0
+        self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
+        self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
+        self.alpha = 255
+    def tick(self,win):
+        pass
