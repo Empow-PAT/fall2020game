@@ -131,7 +131,7 @@ def start_game():
 
         for ult in ults:
             if ult.time < 120:
-                ult.tick(win)
+                ult.tick(win,bot)
         for projectile in projectiles:
             projectile.tick(win, windowwidth, windowheight,bot)
         for projectilEn in enemyProjs:

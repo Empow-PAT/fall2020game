@@ -35,7 +35,7 @@ class Bot:
         #gravity, friction, slope, upwards velocity, x velocity
         self.velx = 0
         self.vely = 0
-        self.hp = 250
+        self.hp = 500
         self.nickName = "Nickname"
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.speed = 1
@@ -44,7 +44,11 @@ class Bot:
 
 
     def tick(self, win, player):
-        draw_text_sat(win, str(self.hp), 18 ,self.x-3, self.y-32)
+        #Hp Drawing
+        #draw_text_sat(win, str(self.hp), 18 ,self.x-3, self.y-32)
+        pygame.draw.rect(win, red, (self.x - 13, self.y - 20, 50, 10))
+        pygame.draw.rect(win, green, (self.x - 13, self.y - 20, self.hp / 10, 10))
+
         win.blit(bot, self.rect)
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)

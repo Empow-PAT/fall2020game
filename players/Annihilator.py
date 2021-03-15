@@ -38,8 +38,8 @@ def draw_text_sat(surf, text, size, x, y):
 
 class Annihilator:
     def __init__(self, nickname):
-        self.x = 0
-        self.y = 0
+        self.x = 50
+        self.y = 50
         self.height = 38.0
         self.width = 38.0
         #friction, slope, upwards velocity, x velocity
@@ -51,6 +51,8 @@ class Annihilator:
         self.dir = "right"
         self.nickName = nickname
         self.ultTimer = 0
+        self.ModTimer = 0
+        self.ModActTimer=81
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     def tick(self,keys,win):
@@ -91,12 +93,26 @@ class Annihilator:
                     self.vely += self.friction
                 if self.vely > -self.friction:
                     self.vely = 0
-
+        #Ultimate
         if keys[pygame.K_q]:
             if self.ultTimer == 0:
                 ult = Ultimate(self)
                 ults.append(ult)
-                self.ultTimer = 10
+                self.ultTimer = 320
+        #Active Module Activation
+        if keys[pygame.K_e]:
+            if self.ModTimer < 1:
+                self.ModActTimer = 0
+                self.ModTimer = 800
+        # Active Module Healing
+        if self.ModActTimer < 81:
+            self.ModActTimer += 1
+            if self.hp<1000:
+                self.hp += 7
+        #Active Module cooldown going down
+        if self.ModTimer>0:
+            self.ModTimer-=1
+
 
         self.x += self.velx
         self.y += self.vely
@@ -106,8 +122,17 @@ class Annihilator:
             projectiles.append(projectile)
         if self.ultTimer > 0:
             self.ultTimer -= 1
-        self.gui = self.nickName + "'s Hp: " + str(self.hp)
-        draw_text_sat(win, self.gui, 18, self.x - len(self.gui) * 3, self.y - 32)
+        #Drawing HP
+
+        self.gui = "Ultimate Cooldown: " + str(int(self.ultTimer/35)) + "secs"
+        self.gui2 = "Active Module Cooldown: " + str(int(self.ModTimer/35)) + "secs"
+        #draw_text_sat(win, self.gui, 18, self.x - len(self.gui) * 3, self.y - 32)
+        pygame.draw.rect(win, red, (self.x-25, self.y-20, 100, 10))
+        pygame.draw.rect(win, green, (self.x - 25, self.y - 20, self.hp/10, 10))
+        draw_text_sat(win, self.gui, 14, 700-(len(self.gui)*5), 25)
+        draw_text_sat(win, self.gui2, 14, 700-(len(self.gui2)*5), 50)
+
+
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         if self.dir == "right":
             annihiRotate = pygame.transform.rotate(annihilatorimg, 270)
@@ -173,18 +198,16 @@ class Ultimate:
         self.surface = pygame.Surface((windowwidth, windowheight),pygame.SRCALPHA)
         self.rect = pygame.Rect(self.x, self.y, self.diameter, self.diameter)
         self.alpha = 255
-    def tick(self,win):
+    def tick(self,win,bot):
         self.diameter += 8
         self.radius = self.diameter / 2
         self.time += 2
         if self.alpha > 15:
-            self.alpha -= 4.5
+            self.alpha -= 3.75
 
         self.surface.fill((0,0,0,0))
         self.rect = pygame.Rect(self.x - self.radius, self.y - self.radius, self.diameter, self.diameter)
-        if self.rect.colliderect(bot.rect):
-            pass
         if (self.x + (self.diameter/2) < bot.x) or (self.x - (self.diameter/2) > bot.x) or (self.y + self.diameter/2 < bot.y) or (self.y - (self.diameter/2) > bot.y):
-            bot.hp -= 1
+            bot.hp -= 28
         pygame.draw.ellipse(self.surface, (127,0,225,self.alpha), self.rect, 15)
         win.blit(self.surface, (0,0))
