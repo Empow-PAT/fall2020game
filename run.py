@@ -70,7 +70,7 @@ def start_game():
 
         for item in BotPlay:
              if item.hp > 0:
-                 item.tick(win, annihilator)
+                 item.tick(win, annihilator, BotPlay)
                  AllBotsDead = False
         #tank.tick(keys, win)
         #if AllBotsDead == False:
