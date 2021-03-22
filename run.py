@@ -3,6 +3,7 @@ import sys
 import pygame
 import pygame_menu
 from fall2020game.players import *
+from fall2020game.players.Annihilator import Sheild
 from fall2020game.sprites import *
 import pygame_menu
 import pickle_func
@@ -45,9 +46,11 @@ def menubackground():
 def start_game():
     global annihilator
     run = True
-    annihilator = Annihilator(nickname)
-    tank = Tank(nickname)
     bot = Bot()
+    annihilator = Annihilator(nickname,bot)
+    sheild = Sheild(annihilator,bot)
+    tank = Tank(nickname)
+
     BotPlay = [bot]
 
     menu.disable()
@@ -124,18 +127,19 @@ def start_game():
 
 
         if annihilator.hp > 0:
-            annihilator.tick(keys, win)
+            annihilator.tick(keys, win, sheild)
         #tank.tick(keys, win)
         #if bot.hp > 0:
            # bot.tick(win, annihilator)
-
+        if sheild.hp > 0:
+            sheild.tick(win,annihilator)
         for ult in ults:
             if ult.time < 120:
                 ult.tick(win,bot)
         for projectile in projectiles:
-            projectile.tick(win, windowwidth, windowheight,bot)
+            projectile.tick(win, windowwidth, windowheight, bot, sheild)
         for projectilEn in enemyProjs:
-            projectilEn.tick(win,annihilator)
+            projectilEn.tick(win,annihilator, bot)
         pygame.display.update()
 
 from os import path

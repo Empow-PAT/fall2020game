@@ -38,7 +38,7 @@ class Bot:
         self.hp = 500
         self.nickName = "Nickname"
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        self.speed = 1
+        self.speed = 2
         self.timer = 0
         self.StaggerTimer = 0
 
@@ -56,25 +56,21 @@ class Bot:
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
-        #Jittery movement
-        #self.vely = player.vely + random.randint(-10, 10)
-        #self.velx = player.velx + random.randint(-10, 10)
-
         #Works but is a little weird when on top of player
         if self.x > player.x:
-            self.velx = -player.speed+1
+            self.velx = -self.speed
         else:
-            self.velx = player.speed-1
+            self.velx = self.speed
 
         if self.y < player.y:
-            self.vely = player.speed - 1
+            self.vely = self.speed
         else:
-            self.vely = -player.speed + 1
+            self.vely = -self.speed
         self.y += self.vely
         self.x += self.velx
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         if self.timer >= 5:
-            projectilEn = Enemy_proj(player,self)
+            projectilEn = Enemy_proj(player,self,self.x, self.y)
             enemyProjs.append(projectilEn)
             self.timer = 0
 
@@ -84,44 +80,46 @@ class Bot:
 enemyProjs = []
 
 class Enemy_proj:
-    def __init__(self,annihilator, bot):
-        self.x = bot.x + 16.5
-        self.y = bot.y + 17
+    def __init__(self,annihilator, sheild, x, y):
+        self.x = x + 16.5
+        self.y = y + 17
         self.height = 10.0
         self.width = 10.0
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         # friction, slope, upwards velocity, x velocity
-        self.velMultiply = 1.5
 
         if self.x > annihilator.x:
-            self.velx = -12
+            self.velx = -8
         else:
-            self.velx = 12
+            self.velx = 8
 
         if self.y < annihilator.y:
-            self.vely = 12
+            self.vely = 8
         else:
-            self.vely = -12
+            self.vely = -8
 
 
         if abs(self.x-annihilator.x) > abs(self.y-annihilator.y):
             if self.x - annihilator.x>0:
-                self.velx=-5
+                self.velx=-3
                 self.vely=0
             else:
-                self.velx = 5
+                self.velx = 3
                 self.vely = 0
         else:
             if self.y - annihilator.y>0:
-                self.vely=-5
+                self.vely=-3
                 self.velx=0
             else:
-                self.vely = 5
+                self.vely = 3
                 self.velx = 0
 
-    def tick(self, win, annihilator):
+    def tick(self, win, annihilator, sheild):
         if self.rect.colliderect(annihilator.rect) and annihilator.hp > 0:
             annihilator.hp -= 10
+            enemyProjs.remove(self)
+        elif self.rect.colliderect(sheild.rect) and sheild.hp > 0:
+            sheild.hp -= 10
             enemyProjs.remove(self)
         self.y += self.vely
         self.x += self.velx
