@@ -5,7 +5,6 @@ import pygame_menu
 from fall2020game.players import *
 from fall2020game.sprites import *
 import pygame_menu
-import pickle_func
 
 pygame.init()
 """Defines the width of the room."""
@@ -177,6 +176,8 @@ def start_game():
             projectile.tick(win, windowwidth, windowheight,bot)
         for projectilEn in enemyProjs:
             projectilEn.tick(win,annihilator)
+        effecT = 1
+        power(annihilator,keys,effecT)
         pygame.display.update()
 
 from os import path

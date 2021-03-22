@@ -47,6 +47,7 @@ class Annihilator:
         self.velx = 0
         self.vely = 0
         self.hp = 1000
+        self.damage = 10
         self.friction = 0.4
         self.dir = "right"
         self.nickName = nickname
@@ -155,6 +156,7 @@ class Projectile_Annihal:
         self.width = 10.0
         # friction, slope, upwards velocity, x velocity
         self.velMultiply = 1.5
+        self.damage = annihilator.damage
 
         self.velx = annihilator.speed*self.velMultiply*annihilator.dirx
         self.vely = annihilator.speed*self.velMultiply*annihilator.diry
@@ -180,7 +182,7 @@ class Projectile_Annihal:
         self.y += self.vely
 
         if self.rect.colliderect(bot.rect):
-            bot.hp -= 10
+            bot.hp -= self.damage
         if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight or self.rect.colliderect(bot.rect):
             projectiles.remove(self)
 
