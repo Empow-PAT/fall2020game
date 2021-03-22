@@ -246,7 +246,7 @@ class Sheild:
         self.width = annihilator.height*2
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.hp = 100
-    def tick(self,win,annihilator,bot):
+    def tick(self,win,annihilator):
         self.x = annihilator.x - (annihilator.width / 2)
         self.y = annihilator.y - (annihilator.height / 2)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)

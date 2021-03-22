@@ -47,8 +47,8 @@ def start_game():
     global annihilator
     run = True
     bot = Bot()
-    annihilator = Annihilator(nickname,bot)
-    sheild = Sheild(annihilator,bot)
+    annihilator = Annihilator(nickname)
+    sheild = Sheild(annihilator)
     tank = Tank(nickname)
 
     BotPlay = [bot]
