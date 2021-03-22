@@ -52,6 +52,9 @@ def start_game():
     tank = Tank(nickname)
 
     BotPlay = [bot]
+    Level1 = 0
+    Level2 = 0
+    Level3 = 0
 
     menu.disable()
     while run:
@@ -66,10 +69,8 @@ def start_game():
         win.fill(black)
         win.blit(sprites["apod1"], (0, 0))
         AllBotsDead = True
-        Level1 = 0
+#       annihilator.tick(keys, win)
 
-        Level2 = 0
-        Level3 = 0
         for item in BotPlay:
              if item.hp > 0:
                  item.tick(win, annihilator)
@@ -77,28 +78,68 @@ def start_game():
         #tank.tick(keys, win)
         #if AllBotsDead == False:
          #   bot.tick(win, annihilator)
-        if AllBotsDead == True:
-                bot2 = Bot()
-                BotPlay.append(bot2)
-                Level1 += 1
+        if AllBotsDead == True and Level1 == 0:
+            bot2 = Bot()
+            BotPlay.append(bot2)
+            Level1+=1
         if len(BotPlay) > 1:
-                if BotPlay[1].StaggerTimer == 200:
-                        print(BotPlay[1].StaggerTimer)
-                        bot3 = Bot()
-                        BotPlay.append(bot3)
+            if Level1 == 1:
+                print("Hello")
+                #if BotPlay[1].StaggerTimer == 100:
+                #print(BotPlay[1].StaggerTimer)
+                bot3 = Bot()
+                BotPlay.append(bot3)
+                BotPlay[2].speed -= 0
+                Level1 +=1
+            if AllBotsDead == True and Level1 == 2:
+                Level2 += 1
 
 
-        if Level2 == 1:
-            if BotPlay[3].StaggerTimer == 200:
+        if len(BotPlay) > 1 and Level1 == 2:
+            if Level2 == 1 and len(BotPlay) == 3:
+                bot4 = Bot()
+                BotPlay.append(bot4)
+                print("HI")
+                Level2 += 1
+            elif Level2 == 2 and len(BotPlay) == 4:
+                BotPlay[3].speed -= 1
                 bot5 = Bot()
                 BotPlay.append(bot5)
-            if BotPlay[4].StaggerTimer == 200:
+                Level2 +=1
+            elif Level2 == 3 and len(BotPlay) == 5:
+                BotPlay[4].speed -= 2
                 bot6 = Bot()
                 BotPlay.append(bot6)
-            if BotPlay[5].StaggerTimer == 200:
+                Level2 += 1
+            elif Level2 == 4 and len(BotPlay) == 6:
+                BotPlay[5].speed -= 3
                 bot7 = Bot()
                 BotPlay.append(bot7)
+                Level2 = 5
+                Level3 += 1
 
+        if len(BotPlay) > 1 and Level2 == 5:
+            if Level3 == 1 and len(BotPlay) == 3:
+                BotPlay[6].speed -= 4
+                bot8 = Bot()
+                BotPlay.append(bot8)
+                print("HI")
+                Level2 += 1
+            elif Level2 == 2 and len(BotPlay) == 4:
+                BotPlay[6].speed -= 3
+                bot9 = Bot()
+                BotPlay.append(bot9)
+                Level2 +=1
+            elif Level2 == 3 and len(BotPlay) == 5:
+                BotPlay[7].speed -= 2
+                bot10 = Bot()
+                BotPlay.append(bot10)
+                Level2 += 1
+            elif Level2 == 4 and len(BotPlay) == 6:
+                BotPlay[8].speed -= 1
+                bot11 = Bot()
+                BotPlay.append(bot11)
+                Level2 += 1
 
         # if AllBotsDead == True and Level2 == 1:
         #         bot8 = Bot()
