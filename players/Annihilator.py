@@ -200,15 +200,15 @@ class Projectile_Annihal:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
 
-    def tick(self,win,windowwidth,windowheight,bot, sheild):
+    def tick(self,win,windowwidth,windowheight,BotPlay, sheild):
         self.x += self.velx
         self.y += self.vely
-
-        if self.rect.colliderect(bot.rect):
-            bot.hp -= 10
-            projectiles.remove(self)
-        elif self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight:
-            projectiles.remove(self)
+        for b in BotPlay:
+            if self.rect.colliderect(b.rect):
+                b.hp -= 10
+            if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight or self.rect.colliderect(b.rect):
+                projectiles.remove(self)
+                break
 
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)

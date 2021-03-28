@@ -178,9 +178,9 @@ def start_game():
             if ult.time < 120:
                 ult.tick(win,bot)
         for projectile in projectiles:
-            projectile.tick(win, windowwidth, windowheight, bot, sheild)
+            projectile.tick(win, windowwidth, windowheight, BotPlay, sheild)
         for projectilEn in enemyProjs:
-            projectilEn.tick(win,annihilator, bot)
+            projectilEn.tick(win,annihilator, sheild)
         pygame.display.update()
 
 from os import path
