@@ -38,7 +38,7 @@ def change_nickname(value):
 
 
 def menubackground():
-    if textin.get_value() == "ENTER NICKNAME" and textin.selected:
+    if textin.get_value() == "ENTER NICKNAME" and textin.is_selected():
         textin.clear()
     textin._cursor_color=(255, 255, 255)
 
@@ -210,15 +210,15 @@ win = pygame.display.set_mode((windowwidth, windowheight))
 pygame.display.set_caption("Astral Run")
 myfont = pygame.font.SysFont('Impact', 100)  # change the 30 for a different text size
 mytheme = pygame_menu.themes.Theme(
-    menubar_close_button=False,
+    title_close_button=False,
     title_font=pygame_menu.font.FONT_MUNRO,
     title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE,
     background_color=backgroundmenu,
 )
-menu = pygame_menu.Menu(windowheight-1, windowwidth-1, " ", theme=mytheme)
+menu = pygame_menu.Menu(" ", windowwidth-1,  windowheight-1, theme=mytheme)
 
-menu.add_label("", selectable=True)
-textin = menu.add_text_input('', default="ENTER NICKNAME", onchange=change_nickname)
-playbutton = menu.add_button("        ", start_game, background_color=playbutton2, font_size=72, widget_selection_effect=pygame_menu.widgets.NoneSelection())
-ships = menu.add_button("         ", None, background_color=ships2, font_size=36, widget_selection_effect=pygame_menu.widgets.NoneSelection())
+menu.add.label("", selectable=True, selection_effect=pygame_menu.widgets.NoneSelection())
+textin = menu.add.text_input('', default="ENTER NICKNAME", onchange=change_nickname)
+playbutton = menu.add.button("        ", start_game, background_color=playbutton2, font_size=72, selection_effect=pygame_menu.widgets.NoneSelection())
+ships = menu.add.button("         ", None, background_color=ships2, font_size=36, selection_effect=pygame_menu.widgets.NoneSelection())
 menu.mainloop(win, bgfun=menubackground)
