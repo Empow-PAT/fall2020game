@@ -4,9 +4,6 @@
 
 import random
 import pygame
-from fall2020game import run
-from fall2020game.players import Annihilator
-from fall2020game.players import sus
 
 __all__ = ["power"]
 
