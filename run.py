@@ -72,6 +72,8 @@ def start_game():
              if item.hp > 0:
                  item.tick(win, annihilator, BotPlay)
                  AllBotsDead = False
+             else:
+                item.rect = pygame.Rect(0, 0, 1000000, -10000)
         #tank.tick(keys, win)
         #if AllBotsDead == False:
          #   bot.tick(win, annihilator)
@@ -114,7 +116,6 @@ def start_game():
                 BotPlay.append(bot7)
                 Level2 = 5
                 Level3 += 1
-
         if len(BotPlay) > 1 and Level2 == 5:
             if Level3 == 1 and len(BotPlay) == 3:
                 BotPlay[6].speed -= 4
