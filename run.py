@@ -1,10 +1,10 @@
-"""File that combines all the files, as shown at the 4&5 lines, and runs them coherently. """
+"""File that combines all the files, as shown at the 5&6 lines, and runs them coherently. """
 import sys
 import pygame
-import pygame_menu
 from fall2020game.players import *
 from fall2020game.players.Annihilator import Sheild
 from fall2020game.sprites import *
+from fall2020game.terrrain import *
 import pygame_menu
 import pickle_func
 
@@ -56,6 +56,21 @@ def start_game():
     Level2 = 0
     Level3 = 0
 
+    astro = Astro()
+    astro2 = Astro()
+    astro3 = Astro()
+    astro4 = Astro()
+    astro5 = Astro()
+    astro6 = Astro()
+    astro7 = Astro()
+    astro8 = Astro()
+    astro9 = Astro()
+    astro10 = Astro()
+    astro11 = Astro()
+    astro12 = Astro()
+    astro13 = Astro()
+    astro_alive = [astro, astro2, astro3, astro4, astro5, astro6, astro7, astro8, astro9, astro10, astro11, astro12, astro13]
+
     menu.disable()
     while run:
 
@@ -70,11 +85,14 @@ def start_game():
         win.blit(sprites["apod1"], (0, 0))
         AllBotsDead = True
 #       annihilator.tick(keys, win)
-
+        for astro in astro_alive:
+            astro.tick(astro_alive, win)
         for item in BotPlay:
              if item.hp > 0:
-                 item.tick(win, annihilator)
+                 item.tick(win, annihilator, BotPlay)
                  AllBotsDead = False
+             else:
+                item.rect = pygame.Rect(0, 0, 1000000, -10000)
         #tank.tick(keys, win)
         #if AllBotsDead == False:
          #   bot.tick(win, annihilator)
@@ -181,6 +199,8 @@ def start_game():
             projectile.tick(win, windowwidth, windowheight, BotPlay, sheild)
         for projectilEn in enemyProjs:
             projectilEn.tick(win,annihilator, sheild)
+        effecT = 1
+        power(annihilator,keys,effecT)
         pygame.display.update()
 
 from os import path

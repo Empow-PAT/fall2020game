@@ -1,4 +1,4 @@
-#Getting Started
+# Getting Started
 1. Create new project named `advancedteam` in pycharm
 1. open terminal tab
 1. `git clone https://github.com/Empow-PAT/fall2020game.git` in terminal
@@ -9,7 +9,7 @@
     
 Right click and run `run.py`
 
-##Controls
+## Controls
 * W Forward
 * A Left 
 * S Down 

@@ -43,7 +43,7 @@ class Bot:
         self.StaggerTimer = 0
 
 
-    def tick(self, win, player):
+    def tick(self, win, player, BotPlay):
         #Hp Drawing
         #draw_text_sat(win, str(self.hp), 18 ,self.x-3, self.y-32)
         pygame.draw.rect(win, red, (self.x - 13, self.y - 20, 50, 10))
@@ -56,16 +56,25 @@ class Bot:
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
+        for bot1 in BotPlay:
+            if bot1.rect.colliderect(self.rect) and bot1.rect != self.rect:
+                self.hp -= 20
+                self.x +=  random.randint(10, 20)
+                self.y += random.randint(10, 20)
+        #Jittery movement
+        #self.vely = player.vely + random.randint(-10, 10)
+        #self.velx = player.velx + random.randint(-10, 10)
+
         #Works but is a little weird when on top of player
         if self.x > player.x:
-            self.velx = -self.speed
+            self.velx = -player.speed+1
         else:
-            self.velx = self.speed
+            self.velx = player.speed-1
 
         if self.y < player.y:
-            self.vely = self.speed
+            self.vely = player.speed - 1
         else:
-            self.vely = -self.speed
+            self.vely = -player.speed + 1
         self.y += self.vely
         self.x += self.velx
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
@@ -87,6 +96,7 @@ class Enemy_proj:
         self.width = 10.0
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         # friction, slope, upwards velocity, x velocity
+        self.velMultiply = 1.5
 
         if self.x > annihilator.x:
             self.velx = -8

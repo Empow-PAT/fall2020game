@@ -46,7 +46,9 @@ class Annihilator:
         self.speed = 3
         self.velx = 0
         self.vely = 0
+        self.max_hp = 1000
         self.hp = 1000
+        self.damage = 10
         self.friction = 0.4
         self.dir = "right"
         self.nickName = nickname
@@ -55,9 +57,13 @@ class Annihilator:
         self.ModActTimer=81
         self.DashTimer=0
         self.DashActTimer=11
+        self.ModAnimSize = 76
+        self.modRect = pygame.Rect(self.x-self.ModAnimSize/3+7.5, self.y-self.ModAnimSize/3+7.5, self.ModAnimSize, self.ModAnimSize)
+        self.ModGoDown = False
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     def tick(self,keys,win,sheild):
+        self.modRect = pygame.Rect(self.x-self.ModAnimSize/3+7.5, self.y-self.ModAnimSize/3+7.5, self.ModAnimSize, self.ModAnimSize)
         if keys[pygame.K_a]:
             self.velx = -self.speed
             self.dir = "left"
@@ -109,6 +115,7 @@ class Annihilator:
         # Active Module Healing
         if self.ModActTimer < 81:
             self.ModActTimer += 1
+            pygame.draw.ellipse(win, green, self.modRect, 5)
             if self.hp<1000:
                 self.hp += 7
         #Active Module cooldown going down
@@ -141,18 +148,32 @@ class Annihilator:
             projectiles.append(projectile)
         if self.ultTimer > 0:
             self.ultTimer -= 1
+
+
+        if self.ModAnimSize < 76:
+            self.ModGoDown = False
+        elif self.ModAnimSize > 152:
+            self.ModGoDown = True
+
+        if self.ModGoDown == False:
+            self.ModAnimSize+=5
+        else:
+            self.ModAnimSize-=5
+
+
+
         #Drawing HP
 
         self.gui = "Ultimate Cooldown: " + str(int(self.ultTimer/35)) + "secs"
         self.gui2 = "Active Module Cooldown: " + str(int(self.ModTimer/35)) + "secs"
         self.gui3 = "Dash Cooldown: " + str(int(self.DashTimer / 35)) + "secs"
-        #draw_text_sat(win, self.gui, 18, self.x - len(self.gui) * 3, self.y - 32)
         #Drawing Health Bar
         pygame.draw.rect(win, red, (self.x-25, self.y-20, 100, 10))
         pygame.draw.rect(win, green, (self.x - 25, self.y - 20, self.hp/10, 10))
         #Drawing Sheild Bar
         pygame.draw.rect(win, white, (self.x - 25, self.y - 40, 100, 10))
         pygame.draw.rect(win, sheildColor, (self.x - 25, self.y - 40, sheild.hp, 10))
+        #Drawing Cooldown Timers
         draw_text_sat(win, self.gui, 14, 700-(len(self.gui)*5), 25)
         draw_text_sat(win, self.gui2, 14, 700-(len(self.gui2)*5), 50)
         draw_text_sat(win, self.gui3, 14, 700 - (len(self.gui3) * 5), 75)
@@ -167,6 +188,7 @@ class Annihilator:
             annihiRotate = pygame.transform.rotate(annihilatorimg, 0)
         if self.dir == "down":
             annihiRotate = pygame.transform.rotate(annihilatorimg, 180)
+        self.modRect = pygame.Rect(self.x-self.ModAnimSize/3+7.5, self.y-self.ModAnimSize/3+7.5, self.ModAnimSize, self.ModAnimSize)
         win.blit(annihiRotate, self.rect)
 
 projectiles = []
@@ -178,8 +200,8 @@ class Projectile_Annihal:
         self.y = annihilator.y + 17
         self.height = 10.0
         self.width = 10.0
-        # friction, slope, upwards velocity, x velocity
         self.velMultiply = 1.5
+        self.damage = annihilator.damage
 
         self.velx = annihilator.speed*self.velMultiply*annihilator.dirx
         self.vely = annihilator.speed*self.velMultiply*annihilator.diry
