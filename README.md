@@ -5,7 +5,7 @@
 1. Open python interpreter and install the following packages:
     1. Pygame
     1. Requests
-    1. Pygame-menu specify version "3.5.5"
+    1. Pygame-menu 
     
 Right click and run `run.py`
 
