@@ -69,10 +69,9 @@ def load_sprites():
             name_wo_png = name_wo_sprite.split('.')[0]
             file_full_path = join(HERE, file_name)
             sprites[name_wo_png] = pygame.image.load(file_full_path)
-        if file_name == name + (".jpg"):
+        if file_name == name + (".jpg") or file_name.endswith('.png'):
             name_wo_png = file_name.split('.')[0]
             file_full_path = join(HERE, file_name)
-            print(file_full_path)
             sprites[name_wo_png] = pygame.image.load(file_full_path)
 
     return sprites

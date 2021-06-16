@@ -17,4 +17,3 @@ def load_sprites():
 
 
 sprites = load_sprites()
-print(sprites)

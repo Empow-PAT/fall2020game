@@ -13,12 +13,12 @@ def create_file(filename: str):
             os.system(f'attrib +h {filename}')
         elif platform.system() == 'Darwin':
             os.rename(filename, f'.{filename}')
-    # Writes some blank text to the file
-    write(filename, "")
 
 # Use this to write to a pickle file
 def write(filename: str, data):
     # Opens the file in writing mode
+    if not os.path.isfile(filename):
+        create_file(filename)
     with open(filename, 'wb') as f:
         # Dumps data into the file using pickle
         pickle.dump(data, f)

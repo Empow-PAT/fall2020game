@@ -38,17 +38,26 @@ class Tank:
         self.height = 25.0
         self.width = 25.0
         #friction, slope, upwards velocity, x velocity
-        self.speed = 7
+        self.speed = 3
         self.velx = 0
         self.vely = 0
         self.hp = 2000
+        self.max_hp = 2000
         self.friction = 0.4
         self.dir = "right"
         self.nickName = nickname
         self.ultTimer = 0
+        self.ModTimer = 0
+        self.ModActTimer = 81
+        self.DashTimer = 0
+        self.DashActTimer = 11
+        self.ModAnimSize = 76
+        self.modRect = pygame.Rect(self.x - self.ModAnimSize / 3 + 7.5, self.y - self.ModAnimSize / 3 + 7.5, self.ModAnimSize, self.ModAnimSize)
+        self.ModGoDown = False
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
-    def tick(self,keys,win):
+    def tick(self,keys,win,sheild):
+        self.modRect = pygame.Rect(self.x - self.ModAnimSize / 3 + 7.5, self.y - self.ModAnimSize / 3 + 7.5, self.ModAnimSize, self.ModAnimSize)
         if keys[pygame.K_a]:
             self.velx = -self.speed
             self.dir = "left"
@@ -92,6 +101,7 @@ class Tank:
                 ult = Ultimate_Tank(self)
                 ults_Tank.append(ult)
                 self.ultTimer = 200
+                # Active Module Activation
 
         self.x += self.velx
         self.y += self.vely
@@ -105,6 +115,19 @@ class Tank:
         draw_text_sat(win, self.nickName, 18 ,self.x-len(self.nickName)*3, self.y-32)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.rect(win, lightblue, self.rect)
+        self.gui = "Ultimate Cooldown: " + str(int(self.ultTimer / 35)) + "secs"
+        self.gui2 = "Active Module Cooldown: " + str(int(self.ModTimer / 35)) + "secs"
+        self.gui3 = "Dash Cooldown: " + str(int(self.DashTimer / 35)) + "secs"
+        # Drawing Health Bar
+        pygame.draw.rect(win, red, (self.x - 25, self.y - 20, 100, 10))
+        pygame.draw.rect(win, green, (self.x - 25, self.y - 20, self.hp / 10, 10))
+        # Drawing Sheild Bar
+        pygame.draw.rect(win, white, (self.x - 25, self.y - 40, 100, 10))
+        pygame.draw.rect(win, sheildColor, (self.x - 25, self.y - 40, sheild.hp, 10))
+        # Drawing Cooldown Timers
+        draw_text_sat(win, self.gui, 14, 700 - (len(self.gui) * 5), 25)
+        draw_text_sat(win, self.gui2, 14, 700 - (len(self.gui2) * 5), 50)
+        draw_text_sat(win, self.gui3, 14, 700 - (len(self.gui3) * 5), 75)
 
 projectiles_tank = []
 ults_Tank = []
@@ -140,8 +163,8 @@ class Sheilds:
 
 class Projectile_Tank:
     def __init__(self,tank):
-        self.x = tank.x
-        self.y = tank.y
+        self.x = tank.x + 16.5
+        self.y = tank.y + 17
         self.height = 10.0
         self.width = 10.0
         # friction, slope, upwards velocity, x velocity
@@ -166,15 +189,17 @@ class Projectile_Tank:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
 
-    def tick(self,win,windowwidth,windowheight,bot):
+    def tick(self,win,windowwidth,windowheight,BotPlay,sheild):
         self.x += self.velx
         self.y += self.vely
 
-        if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight:
-            projectiles_tank.remove(self)
-        if self.rect.colliderect(bot.rect) and bot.hp > 0:
-            bot.hp -= 10
-            projectiles_tank.remove(self)
+        for b in BotPlay:
+            if self.rect.colliderect(b.rect):
+                b.hp -= 10
+            if self.x < 0 or self.y < 0 or self.x > windowwidth or self.y > windowheight or self.rect.colliderect(
+                    b.rect):
+                projectiles_tank.remove(self)
+                break
 
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)

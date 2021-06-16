@@ -47,8 +47,9 @@ class Astro:
             self.yd = random.randint(-10, 10)
             while self.yd == 0:
                 self.yd = random.randint(-10, 10)
-        for a in astro_alive:
-            if a.rect.colliderect(self.rect) and a.rect != self.rect:
-                astro_alive.remove(self)
+        # for a in astro_alive:
+        #     if a.rect.colliderect(self.rect) and a.rect != self.rect:
+        #         astro_alive.remove(self)
+        #         break
         self.x += self.xd
         self.y += self.yd
